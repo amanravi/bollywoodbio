@@ -32,7 +32,7 @@ export default function UpcomingMovies({ movies, onLearnMore }: UpcomingMoviesPr
             <div key={movie.id} className={styles.movieWrapper}>
               <MovieCard 
                 movie={movie}
-                onLearnMore={onLearnMore}
+                onLearnMore={onLearnMore ? () => onLearnMore(movie) : undefined}
                 showBookButton={false}
               />
               <div className={styles.releaseDate}>
