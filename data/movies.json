@@ -58,7 +58,7 @@
       "description": "An intense action-packed drama that explores complex relationships.",
       "image": "/images/animal.jpg",
       "bookingUrl": "https://example.com/book/animal",
-      "releaseDate": "2024-02-10",
+      "releaseDate": "2026-06-10",
       "isActive": false,
       "synopsis": "A story about a man's complex relationship with his father and his journey of revenge.",
       "trailerLink": "https://www.youtube.com/watch?v=example2",
@@ -75,7 +75,7 @@
       "rating": "A",
       "language": "Hindi",
       "isFeatured": false,
-      "isPreviousDistribution": true
+      "isPreviousDistribution": false
     },
     {
       "id": "movie3",

@@ -1,6 +1,6 @@
-.movieGridSection {
+.upcomingSection {
   padding: 4rem 0;
-  background-color: var(--bg-dark);
+  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--secondary-color) 100%);
 }
 
 .container {
@@ -31,59 +31,80 @@
   border-radius: 2px;
 }
 
-.noMovies {
-  text-align: center;
-  color: var(--text-secondary);
-  font-size: 1.2rem;
-}
-
-.movieGrid {
+.moviesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
 }
 
+.movieWrapper {
+  position: relative;
+}
+
+.releaseDate {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--bg-card);
+  border-radius: 8px;
+  text-align: center;
+  border: 2px solid var(--primary-color);
+}
+
+.releaseLabel {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.releaseValue {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
 @media (max-width: 768px) {
-  .movieGridSection {
+  .upcomingSection {
     padding: 2rem 0;
   }
-  
+
   .container {
     padding: 0 1rem;
   }
-  
+
   .sectionTitle {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
   }
-  
-  .movieGrid {
+
+  .moviesGrid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 1rem;
+  }
+
+  .releaseDate {
+    padding: 0.75rem;
+  }
+
+  .releaseValue {
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .movieGridSection {
+  .upcomingSection {
     padding: 1.5rem 0;
   }
-  
-  .container {
-    padding: 0 0.75rem;
-  }
-  
+
   .sectionTitle {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
   }
-  
-  .movieGrid {
+
+  .moviesGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
-  }
-  
-  .noMovies {
-    font-size: 1rem;
-    padding: 2rem 1rem;
   }
 }

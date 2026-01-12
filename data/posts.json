@@ -1,0 +1,17 @@
+{
+  "posts": [
+    {
+      "id": "post_1768184781659",
+      "title": "Title",
+      "content": "content",
+      "excerpt": "Test",
+      "image": "",
+      "author": "",
+      "publishedAt": "2026-01-12T02:26:21.659Z",
+      "category": "",
+      "tags": [],
+      "isPublished": true,
+      "featured": true
+    }
+  ]
+}

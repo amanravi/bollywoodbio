@@ -31,10 +31,12 @@ export default function MoviePageContent({ featured, movies }: MoviePageContentP
         movie={featured} 
         onLearnMore={() => handleLearnMore(featured)}
       />
-      <MovieGrid 
-        movies={movies}
-        onLearnMore={(movie) => handleLearnMore(movie)}
-      />
+      {movies.length > 0 && (
+        <MovieGrid 
+          movies={movies}
+          onLearnMore={(movie) => handleLearnMore(movie)}
+        />
+      )}
       <MovieModal
         movie={selectedMovie}
         isOpen={isModalOpen}
