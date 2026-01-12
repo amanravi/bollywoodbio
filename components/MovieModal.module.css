@@ -196,29 +196,121 @@
 
 @media (max-width: 768px) {
   .modalOverlay {
-    padding: 1rem;
+    padding: 0.5rem;
+    align-items: flex-start;
+    padding-top: 1rem;
+  }
+
+  .modalContent {
+    max-height: 95vh;
+    margin: 0;
+    border-radius: 8px;
   }
 
   .modalHeader {
     flex-direction: column;
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
+    gap: 1rem;
   }
 
   .modalImage {
     width: 100%;
-    height: 400px;
+    height: 300px;
     margin: 0 auto;
+    min-width: auto;
   }
 
   .modalTitle {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .movieMeta {
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .movieMeta span {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.8rem;
   }
 
   .modalBody {
-    padding: 1.5rem;
+    padding: 1rem;
+  }
+
+  .section {
+    margin-bottom: 1.5rem;
+  }
+
+  .section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .synopsis {
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 
   .actionButtons {
     flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .bookButton,
+  .trailerButton {
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .closeButton {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalOverlay {
+    padding: 0;
+  }
+
+  .modalContent {
+    border-radius: 0;
+    max-height: 100vh;
+  }
+
+  .modalHeader {
+    padding: 1rem 0.75rem;
+  }
+
+  .modalImage {
+    height: 250px;
+  }
+
+  .modalTitle {
+    font-size: 1.5rem;
+  }
+
+  .modalBody {
+    padding: 0.75rem;
+  }
+
+  .section h3 {
+    font-size: 1.1rem;
+  }
+
+  .synopsis {
+    font-size: 0.9rem;
+  }
+
+  .bookButton,
+  .trailerButton {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
   }
 }

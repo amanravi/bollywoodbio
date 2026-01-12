@@ -131,10 +131,51 @@
   .movieInfo {
     padding: 1rem;
   }
+  
   .movieTitle {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
   }
+  
   .movieDescription {
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    -webkit-line-clamp: 2;
+  }
+  
+  .learnMoreButton,
+  .bookButton {
+    padding: 0.7rem 1.5rem;
     font-size: 0.9rem;
+    max-width: 100%;
+  }
+  
+  .releaseDate {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .movieInfo {
+    padding: 0.75rem;
+  }
+  
+  .movieTitle {
+    font-size: 1rem;
+  }
+  
+  .movieDescription {
+    font-size: 0.8rem;
+    -webkit-line-clamp: 2;
+  }
+  
+  .learnMoreButton,
+  .bookButton {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .overlayButtons {
+    gap: 0.6rem;
   }
 }

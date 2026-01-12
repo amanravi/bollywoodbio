@@ -31,11 +31,31 @@
 @media (max-width: 768px) {
   .previousSection {
     padding: 2rem 1rem;
+    min-height: auto;
   }
+  
   .title {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
   }
+  
   .subtitle {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .previousSection {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
   }
 }

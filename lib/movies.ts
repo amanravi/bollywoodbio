@@ -21,7 +21,7 @@ export interface Movie {
 }
 
 export interface MoviesData {
-  featured: Movie | null
+  featured: Movie
   movies: Movie[]
 }
 
@@ -32,7 +32,7 @@ export async function getMoviesData(): Promise<MoviesData> {
   )
   
   return {
-    featured: moviesData.featured || null,
+    featured: moviesData.featured,
     movies: activeMovies,
   }
 }

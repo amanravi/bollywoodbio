@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 // Simple password check - in production, use proper authentication
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123'
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Prash@1986'
 
 export async function POST(request: NextRequest) {
   try {

@@ -47,18 +47,56 @@
 @media (max-width: 768px) {
   .aboutSection {
     padding: 2rem 1rem;
+    min-height: auto;
   }
+  
   .title {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
   }
+  
+  .content {
+    gap: 2rem;
+  }
+  
   .section {
     padding: 1.5rem;
   }
+  
   .section h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
   }
+  
   .section p {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 480px) {
+  .aboutSection {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .content {
+    gap: 1.5rem;
+  }
+  
+  .section {
+    padding: 1rem;
+  }
+  
+  .section h2 {
+    font-size: 1.2rem;
+  }
+  
+  .section p {
+    font-size: 0.9rem;
   }
 }

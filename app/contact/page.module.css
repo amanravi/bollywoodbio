@@ -80,12 +80,72 @@
 @media (max-width: 768px) {
   .contactSection {
     padding: 2rem 1rem;
+    min-height: auto;
   }
+  
   .title {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
   }
+  
+  .info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .info > p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .detailItem {
+    padding: 1.2rem;
+  }
+  
+  .detailItem h3 {
+    font-size: 1.1rem;
+  }
+  
+  .detailItem p {
+    font-size: 0.95rem;
+  }
+  
   .formContainer {
     padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactSection {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .content {
+    gap: 2rem;
+  }
+  
+  .info h2 {
+    font-size: 1.3rem;
+  }
+  
+  .info > p {
+    font-size: 0.95rem;
+  }
+  
+  .detailItem {
+    padding: 1rem;
+  }
+  
+  .detailItem h3 {
+    font-size: 1rem;
+  }
+  
+  .formContainer {
+    padding: 1rem;
   }
 }
