@@ -5,6 +5,10 @@ import MoviePageContent from '@/components/MoviePageContent'
 import UpcomingMovies from '@/components/UpcomingMovies'
 import PostsSection from '@/components/PostsSection'
 
+// Force dynamic rendering to pick up admin changes on Hostinger
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function Home() {
   const { featured, movies } = await getMoviesData()
   const upcomingMovies = await getUpcomingMovies()

@@ -1,4 +1,18 @@
-﻿import moviesData from '@/data/movies.json'
+﻿import { readFile } from 'fs/promises'
+import { join } from 'path'
+
+const MOVIES_FILE = join(process.cwd(), 'data', 'movies.json')
+
+async function getMoviesDataFromFile() {
+  try {
+    const fileContents = await readFile(MOVIES_FILE, 'utf8')
+    return JSON.parse(fileContents)
+  } catch (error) {
+    // Fallback to import if file read fails (for build time)
+    const moviesData = await import('@/data/movies.json')
+    return moviesData.default
+  }
+}
 
 export interface Movie {
   id: string
@@ -26,6 +40,9 @@ export interface MoviesData {
 }
 
 export async function getMoviesData(): Promise<MoviesData> {
+  // Read from file system to get latest data (not cached at build time)
+  const moviesData = await getMoviesDataFromFile()
+  
   // Filter out inactive movies and previous distributions
   const activeMovies = moviesData.movies.filter(
     movie => movie.isActive && !movie.isPreviousDistribution
@@ -38,11 +55,17 @@ export async function getMoviesData(): Promise<MoviesData> {
 }
 
 export async function getPreviousMovies(): Promise<Movie[]> {
+  // Read from file system to get latest data
+  const moviesData = await getMoviesDataFromFile()
+  
   // Get only previous distribution movies
   return moviesData.movies.filter(movie => movie.isPreviousDistribution === true)
 }
 
 export async function getUpcomingMovies(): Promise<Movie[]> {
+  // Read from file system to get latest data
+  const moviesData = await getMoviesDataFromFile()
+  
   // Get movies with release dates in the future, sorted by release date
   const today = new Date()
   today.setHours(0, 0, 0, 0)
