@@ -44,8 +44,8 @@ export async function getMoviesData(): Promise<MoviesData> {
   const moviesData = await getMoviesDataFromFile()
   
   // Filter out inactive movies and previous distributions
-  const activeMovies = moviesData.movies.filter(
-    movie => movie.isActive && !movie.isPreviousDistribution
+  const activeMovies = (moviesData.movies as Movie[]).filter(
+    (movie: Movie) => movie.isActive && !movie.isPreviousDistribution
   )
   
   return {
@@ -59,7 +59,7 @@ export async function getPreviousMovies(): Promise<Movie[]> {
   const moviesData = await getMoviesDataFromFile()
   
   // Get only previous distribution movies
-  return moviesData.movies.filter(movie => movie.isPreviousDistribution === true)
+  return (moviesData.movies as Movie[]).filter((movie: Movie) => movie.isPreviousDistribution === true)
 }
 
 export async function getUpcomingMovies(): Promise<Movie[]> {
@@ -70,14 +70,14 @@ export async function getUpcomingMovies(): Promise<Movie[]> {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
   
-  const upcoming = moviesData.movies
-    .filter(movie => {
+  const upcoming = (moviesData.movies as Movie[])
+    .filter((movie: Movie) => {
       if (movie.isPreviousDistribution) return false
       const releaseDate = new Date(movie.releaseDate)
       releaseDate.setHours(0, 0, 0, 0)
       return releaseDate > today
     })
-    .sort((a, b) => {
+    .sort((a: Movie, b: Movie) => {
       const dateA = new Date(a.releaseDate).getTime()
       const dateB = new Date(b.releaseDate).getTime()
       return dateA - dateB
