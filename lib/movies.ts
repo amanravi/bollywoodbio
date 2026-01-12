@@ -1,4 +1,4 @@
-﻿import { readFile } from 'fs/promises'
+import { readFile } from 'fs/promises'
 import { join } from 'path'
 
 const MOVIES_FILE = join(process.cwd(), 'data', 'movies.json')
