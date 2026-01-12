@@ -1,4 +1,4 @@
-import moviesData from '@/data/movies.json'
+﻿import moviesData from '@/data/movies.json'
 
 export interface Movie {
   id: string
@@ -21,7 +21,7 @@ export interface Movie {
 }
 
 export interface MoviesData {
-  featured: Movie
+  featured: Movie | null
   movies: Movie[]
 }
 
@@ -32,7 +32,7 @@ export async function getMoviesData(): Promise<MoviesData> {
   )
   
   return {
-    featured: moviesData.featured,
+    featured: moviesData.featured || null,
     movies: activeMovies,
   }
 }
@@ -41,7 +41,6 @@ export async function getPreviousMovies(): Promise<Movie[]> {
   // Get only previous distribution movies
   return moviesData.movies.filter(movie => movie.isPreviousDistribution === true)
 }
-
 
 export async function getUpcomingMovies(): Promise<Movie[]> {
   // Get movies with release dates in the future, sorted by release date

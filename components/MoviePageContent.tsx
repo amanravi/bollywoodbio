@@ -7,7 +7,7 @@ import MovieGrid from './MovieGrid'
 import MovieModal from './MovieModal'
 
 interface MoviePageContentProps {
-  featured: Movie
+  featured: Movie | null
   movies: Movie[]
 }
 
@@ -27,10 +27,12 @@ export default function MoviePageContent({ featured, movies }: MoviePageContentP
 
   return (
     <>
-      <FeaturedBanner 
-        movie={featured} 
-        onLearnMore={() => handleLearnMore(featured)}
-      />
+      {featured && (
+        <FeaturedBanner 
+          movie={featured} 
+          onLearnMore={() => handleLearnMore(featured)}
+        />
+      )}
       {movies.length > 0 && (
         <MovieGrid 
           movies={movies}
