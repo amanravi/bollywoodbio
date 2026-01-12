@@ -4,20 +4,13 @@ import { join } from 'path'
 
 const MOVIES_FILE = join(process.cwd(), 'data', 'movies.json')
 
-// Helper to check authentication
-function isAuthenticated(request: NextRequest): boolean {
-  // In a real app, use proper session/auth tokens
-  // For now, we'll check a header or use server-side session
-  const authHeader = request.headers.get('authorization')
-  return authHeader === 'Bearer admin_authenticated'
-}
-
 export async function GET() {
   try {
     const fileContents = await readFile(MOVIES_FILE, 'utf8')
     const data = JSON.parse(fileContents)
-    return NextResponse.json(data)
+    return NextResponse.json({ movies: data.movies, featured: data.featured || null })
   } catch (error) {
+    console.error('Failed to read movies:', error)
     return NextResponse.json(
       { error: 'Failed to read movies data' },
       { status: 500 }
@@ -53,6 +46,7 @@ export async function POST(request: NextRequest) {
     await writeFile(MOVIES_FILE, JSON.stringify(data, null, 2), 'utf8')
     return NextResponse.json({ success: true, movie })
   } catch (error) {
+    console.error('Failed to add movie:', error)
     return NextResponse.json(
       { error: 'Failed to add movie' },
       { status: 500 }
@@ -95,6 +89,7 @@ export async function PUT(request: NextRequest) {
     await writeFile(MOVIES_FILE, JSON.stringify(data, null, 2), 'utf8')
     return NextResponse.json({ success: true, movie })
   } catch (error) {
+    console.error('Failed to update movie:', error)
     return NextResponse.json(
       { error: 'Failed to update movie' },
       { status: 500 }
@@ -120,6 +115,7 @@ export async function DELETE(request: NextRequest) {
     await writeFile(MOVIES_FILE, JSON.stringify(data, null, 2), 'utf8')
     return NextResponse.json({ success: true })
   } catch (error) {
+    console.error('Failed to delete movie:', error)
     return NextResponse.json(
       { error: 'Failed to delete movie' },
       { status: 500 }
