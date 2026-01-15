@@ -8,6 +8,8 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .bannerContent {

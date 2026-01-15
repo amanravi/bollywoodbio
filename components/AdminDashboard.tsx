@@ -50,6 +50,22 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
     }
   }
 
+  // Helper function to revalidate cache after data changes
+  const revalidateCache = async () => {
+    try {
+      // Use the admin password to revalidate cache
+      const password = 'Prash@1986'
+      await fetch('/api/revalidate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      })
+    } catch (error) {
+      console.error('Failed to revalidate cache:', error)
+      // Don't show error to user, as it's not critical - the data is saved, cache will update eventually
+    }
+  }
+
   const handleAddMovie = () => {
     setEditingMovie(null)
     setShowMovieForm(true)
@@ -79,6 +95,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
       if (response.ok) {
         await loadPosts()
+        await revalidateCache()
       } else {
         alert('Failed to delete post')
       }
@@ -106,6 +123,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
       if (response.ok) {
         await loadMovies()
+        await revalidateCache()
       } else {
         alert('Failed to delete movie')
       }
@@ -125,6 +143,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
       if (response.ok) {
         await loadMovies()
+        await revalidateCache()
       }
     } catch (error) {
       alert('Error updating movie')
@@ -152,6 +171,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
       }
 
       await loadMovies()
+      await revalidateCache()
     } catch (error) {
       alert('Error setting featured movie')
     }
@@ -173,6 +193,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
       if (response.ok) {
         await loadMovies()
+        await revalidateCache()
       }
     } catch (error) {
       alert('Error updating movie')
@@ -228,6 +249,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
             movie={editingMovie}
             onSave={async () => {
               await loadMovies()
+              await revalidateCache()
               setShowMovieForm(false)
               setEditingMovie(null)
             }}
@@ -243,6 +265,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
             post={editingPost}
             onSave={async () => {
               await loadPosts()
+              await revalidateCache()
               setShowPostForm(false)
               setEditingPost(null)
             }}

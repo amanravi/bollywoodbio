@@ -25,7 +25,6 @@ export default function Header() {
               alt="BollywoodBio" 
               className={styles.logoImage}
             />
-            <h1>BollywoodBio</h1>
           </Link>
         </div>
         

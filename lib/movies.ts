@@ -5,9 +5,25 @@ const MOVIES_FILE = join(process.cwd(), 'data', 'movies.json')
 
 async function getMoviesDataFromFile() {
   try {
+    // Log the file path for debugging (only in development or if DEBUG env is set)
+    if (process.env.NODE_ENV !== 'production' || process.env.DEBUG) {
+      console.log('Reading movies from:', MOVIES_FILE)
+      console.log('Current working directory:', process.cwd())
+    }
+    
     const fileContents = await readFile(MOVIES_FILE, 'utf8')
-    return JSON.parse(fileContents)
+    const data = JSON.parse(fileContents)
+    
+    // Log when file was last read for debugging
+    if (process.env.NODE_ENV !== 'production' || process.env.DEBUG) {
+      console.log('Movies file read successfully at:', new Date().toISOString())
+      console.log('Total movies:', data.movies?.length || 0)
+    }
+    
+    return data
   } catch (error) {
+    console.error('Error reading movies file:', error)
+    console.error('Attempted path:', MOVIES_FILE)
     // Fallback to import if file read fails (for build time)
     const moviesData = await import('@/data/movies.json')
     return moviesData.default
