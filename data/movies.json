@@ -23,7 +23,8 @@
     "rating": "PG-13",
     "language": "Hindi",
     "isFeatured": true,
-    "isPreviousDistribution": false
+    "isPreviousDistribution": false,
+    "showTrailer": true
   },
   "movies": [
     {
@@ -50,18 +51,19 @@
       "rating": "PG-13",
       "language": "Hindi",
       "isFeatured": true,
-      "isPreviousDistribution": false
+      "isPreviousDistribution": false,
+      "showTrailer": true
     },
     {
       "id": "movie2",
       "title": "Animal",
       "description": "An intense action-packed drama that explores complex relationships.",
-      "image": "/images/animal.jpg",
+      "image": "/images/1768510846364_OIP.webp",
       "bookingUrl": "https://example.com/book/animal",
       "releaseDate": "2026-06-10",
-      "isActive": false,
+      "isActive": true,
       "synopsis": "A story about a man's complex relationship with his father and his journey of revenge.",
-      "trailerLink": "https://www.youtube.com/watch?v=example2",
+      "trailerLink": "https://www.youtube.com/watch?v=Dydmpfo68DA",
       "cast": [
         "Ranbir Kapoor",
         "Rashmika Mandanna"
@@ -75,7 +77,8 @@
       "rating": "A",
       "language": "Hindi",
       "isFeatured": false,
-      "isPreviousDistribution": false
+      "isPreviousDistribution": false,
+      "showTrailer": true
     },
     {
       "id": "movie3",

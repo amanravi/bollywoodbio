@@ -9,14 +9,42 @@
   padding: 0 2rem;
 }
 
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .sectionTitle {
   font-size: 2.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 0;
   color: var(--text-color);
   font-weight: 700;
   text-align: center;
   position: relative;
   padding-bottom: 1rem;
+  flex: 1;
+}
+
+.viewAllLink {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  white-space: nowrap;
+}
+
+.viewAllLink:hover {
+  transform: translateX(5px);
+}
+
+.postCardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .sectionTitle::after {

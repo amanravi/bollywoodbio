@@ -28,6 +28,7 @@ export default function MovieForm({ movie, onSave, onCancel }: MovieFormProps) {
     language: '',
     isFeatured: false,
     isPreviousDistribution: false,
+    showTrailer: false,
   })
   const [uploading, setUploading] = useState(false)
   const [castInput, setCastInput] = useState('')
@@ -292,6 +293,15 @@ export default function MovieForm({ movie, onSave, onCancel }: MovieFormProps) {
                 onChange={handleInputChange}
               />
               Previous Distribution (moves to past films page)
+            </label>
+            <label className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                name="showTrailer"
+                checked={formData.showTrailer}
+                onChange={handleInputChange}
+              />
+              Show Trailer on Homepage
             </label>
           </div>
 

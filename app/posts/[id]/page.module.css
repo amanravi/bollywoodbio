@@ -1,0 +1,145 @@
+.postPage {
+  padding: 2rem 0 4rem;
+  background-color: var(--bg-dark);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.backLink {
+  display: inline-block;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  transition: color 0.3s ease;
+  font-size: 1rem;
+}
+
+.backLink:hover {
+  color: var(--primary-color);
+}
+
+.postImage {
+  width: 100%;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.postImage img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.postHeader {
+  margin-bottom: 2rem;
+}
+
+.category {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.postTitle {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  line-height: 1.2;
+}
+
+.postMeta {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.author {
+  font-weight: 600;
+}
+
+.date {
+  color: var(--text-secondary);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tag {
+  background-color: var(--bg-card);
+  color: var(--text-color);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.postContent {
+  color: var(--text-color);
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.paragraph {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+.postFooter {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.moreArticlesLink {
+  display: inline-block;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: transform 0.3s ease;
+}
+
+.moreArticlesLink:hover {
+  transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+  .postPage {
+    padding: 1.5rem 0 3rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .postTitle {
+    font-size: 2rem;
+  }
+
+  .postContent {
+    font-size: 1rem;
+  }
+
+  .postMeta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

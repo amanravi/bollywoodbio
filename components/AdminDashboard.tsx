@@ -200,6 +200,27 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
     }
   }
 
+  const handleToggleShowTrailer = async (movie: Movie) => {
+    const updated = { 
+      ...movie, 
+      showTrailer: !movie.showTrailer
+    }
+    try {
+      const response = await fetch('/api/movies', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updated),
+      })
+
+      if (response.ok) {
+        await loadMovies()
+        await revalidateCache()
+      }
+    } catch (error) {
+      alert('Error updating movie')
+    }
+  }
+
   if (loading) {
     return <div className={styles.loading}>Loading...</div>
   }
@@ -316,6 +337,14 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                         type="checkbox"
                         checked={movie.isPreviousDistribution || false}
                         onChange={() => handleTogglePreviousDistribution(movie)}
+                      />
+                    </div>
+                    <div className={styles.infoRow}>
+                      <label>Show Trailer:</label>
+                      <input
+                        type="checkbox"
+                        checked={movie.showTrailer || false}
+                        onChange={() => handleToggleShowTrailer(movie)}
                       />
                     </div>
                     <div className={styles.movieActions}>

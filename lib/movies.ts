@@ -48,6 +48,7 @@ export interface Movie {
   language?: string
   isFeatured?: boolean
   isPreviousDistribution?: boolean
+  showTrailer?: boolean
 }
 
 export interface MoviesData {
@@ -100,4 +101,23 @@ export async function getUpcomingMovies(): Promise<Movie[]> {
     })
   
   return upcoming
+}
+
+export async function getMoviesWithTrailers(): Promise<Movie[]> {
+  // Read from file system to get latest data
+  const moviesData = await getMoviesDataFromFile()
+  
+  // Get movies that have showTrailer enabled, have a trailer link, are active, and not previous distributions
+  return (moviesData.movies as Movie[])
+    .filter((movie: Movie) => 
+      movie.showTrailer === true && 
+      movie.trailerLink && 
+      movie.isActive && 
+      !movie.isPreviousDistribution
+    )
+    .sort((a: Movie, b: Movie) => {
+      const dateA = new Date(a.releaseDate).getTime()
+      const dateB = new Date(b.releaseDate).getTime()
+      return dateB - dateA // Most recent first
+    })
 }
