@@ -12,10 +12,37 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export default async function Home() {
-  const { featured, movies } = await getMoviesData()
-  const upcomingMovies = await getUpcomingMovies()
-  const featuredPosts = await getFeaturedPosts()
-  const moviesWithTrailers = await getMoviesWithTrailers()
+  let featured = null
+  let movies: any[] = []
+  let upcomingMovies: any[] = []
+  let featuredPosts: any[] = []
+  let moviesWithTrailers: any[] = []
+
+  try {
+    const moviesData = await getMoviesData()
+    featured = moviesData.featured
+    movies = moviesData.movies
+  } catch (error) {
+    console.error('[Homepage] Failed to load movies:', error)
+  }
+
+  try {
+    upcomingMovies = await getUpcomingMovies()
+  } catch (error) {
+    console.error('[Homepage] Failed to load upcoming movies:', error)
+  }
+
+  try {
+    featuredPosts = await getFeaturedPosts()
+  } catch (error) {
+    console.error('[Homepage] Failed to load featured posts:', error)
+  }
+
+  try {
+    moviesWithTrailers = await getMoviesWithTrailers()
+  } catch (error) {
+    console.error('[Homepage] Failed to load trailers:', error)
+  }
 
   return (
     <main className="homeLuxury">
