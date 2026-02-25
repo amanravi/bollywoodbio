@@ -1,20 +1,31 @@
 import type { Metadata, Viewport } from 'next'
-import { Bebas_Neue, Inter } from 'next/font/google'
 import './globals.css'
 
-const displayFont = Bebas_Neue({
-  subsets: ['latin'],
-  weight: '400',
-  display: 'swap',
-  variable: '--font-display',
-})
+let fontClasses = ''
 
-const bodyFont = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-  variable: '--font-body',
-})
+try {
+  // Dynamic import pattern to prevent font loading from crashing the layout
+  const { Bebas_Neue, Inter } = require('next/font/google')
+  
+  const displayFont = Bebas_Neue({
+    subsets: ['latin'],
+    weight: '400',
+    display: 'swap',
+    variable: '--font-display',
+  })
+
+  const bodyFont = Inter({
+    subsets: ['latin'],
+    weight: ['400', '500', '600', '700'],
+    display: 'swap',
+    variable: '--font-body',
+  })
+
+  fontClasses = `${bodyFont.className} ${displayFont.variable}`
+} catch (error) {
+  console.error('[Layout] Font loading failed:', error)
+  fontClasses = ''
+}
 
 export const metadata: Metadata = {
   title: 'BollywoodBio - Book Your Movie Tickets',
@@ -38,7 +49,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${bodyFont.className} ${displayFont.variable}`}>{children}</body>
+      <body className={fontClasses}>{children}</body>
     </html>
   )
 }

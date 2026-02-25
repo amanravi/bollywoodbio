@@ -22,10 +22,24 @@ export default function GlobalError({
           color: '#ffffff'
         }}>
           <h2>Something went wrong!</h2>
+          <p style={{ 
+            marginTop: '1rem', 
+            color: '#ff6b6b', 
+            maxWidth: '600px',
+            fontSize: '0.9rem',
+            wordBreak: 'break-word'
+          }}>
+            {error?.message || 'Unknown error'}
+          </p>
+          {error?.digest && (
+            <p style={{ marginTop: '0.5rem', color: '#888', fontSize: '0.8rem' }}>
+              Digest: {error.digest}
+            </p>
+          )}
           <button
             onClick={reset}
             style={{
-              marginTop: '1rem',
+              marginTop: '1.5rem',
               padding: '0.5rem 1rem',
               backgroundColor: '#e50914',
               color: '#ffffff',
