@@ -15,6 +15,8 @@ export default function MovieForm({ movie, onSave, onCancel }: MovieFormProps) {
     title: '',
     description: '',
     image: '',
+    bannerImage: '',
+    bannerType: 'trailer',
     bookingUrl: '',
     releaseDate: new Date().toISOString().split('T')[0],
     isActive: true,
@@ -31,6 +33,7 @@ export default function MovieForm({ movie, onSave, onCancel }: MovieFormProps) {
     showTrailer: false,
   })
   const [uploading, setUploading] = useState(false)
+  const [bannerUploading, setBannerUploading] = useState(false)
   const [castInput, setCastInput] = useState('')
   const [genreInput, setGenreInput] = useState('')
 
@@ -76,6 +79,33 @@ export default function MovieForm({ movie, onSave, onCancel }: MovieFormProps) {
       alert('Error uploading file')
     } finally {
       setUploading(false)
+    }
+  }
+
+  const handleBannerUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setBannerUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await response.json()
+      if (data.success) {
+        setFormData(prev => ({ ...prev, bannerImage: data.url }))
+      } else {
+        alert('Upload failed')
+      }
+    } catch (error) {
+      alert('Error uploading file')
+    } finally {
+      setBannerUploading(false)
     }
   }
 
@@ -236,6 +266,23 @@ export default function MovieForm({ movie, onSave, onCancel }: MovieFormProps) {
           </div>
 
           <div className={styles.formGroup}>
+            <label>Banner Type (Featured Banner)</label>
+            <select
+              name="bannerType"
+              value={formData.bannerType || 'trailer'}
+              onChange={(e) =>
+                setFormData(prev => ({
+                  ...prev,
+                  bannerType: e.target.value as 'trailer' | 'poster',
+                }))
+              }
+            >
+              <option value="trailer">Trailer (YouTube)</option>
+              <option value="poster">Poster (Landscape)</option>
+            </select>
+          </div>
+
+          <div className={styles.formGroup}>
             <label>Booking URL *</label>
             <input
               type="url"
@@ -261,6 +308,25 @@ export default function MovieForm({ movie, onSave, onCancel }: MovieFormProps) {
                 <div className={styles.imagePreview}>
                   <img src={formData.image} alt="Preview" />
                   <span>{formData.image}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.formGroup}>
+            <label>Banner Image (Landscape)</label>
+            <div className={styles.uploadSection}>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleBannerUpload}
+                disabled={bannerUploading}
+              />
+              {bannerUploading && <span>Uploading...</span>}
+              {formData.bannerImage && (
+                <div className={styles.imagePreview}>
+                  <img src={formData.bannerImage} alt="Banner Preview" />
+                  <span>{formData.bannerImage}</span>
                 </div>
               )}
             </div>

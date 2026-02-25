@@ -1,30 +1,23 @@
 {
   "featured": {
-    "id": "movie1",
-    "title": "Dunki",
-    "description": "A heartwarming story of friendship, dreams, and the journey of a lifetime.",
-    "image": "/images/1768145531496_dunki-248.webp",
-    "bookingUrl": "https://example.com/book/dunki",
-    "releaseDate": "2024-01-15",
+    "title": "Bad Newz",
+    "description": "A Love Story",
+    "image": "",
+    "bannerImage": "/images/1772038676151_Bad_newz_Hori_1.jpg",
+    "bannerType": "trailer",
+    "bookingUrl": "https://mail.google.com/mail/u/0/#inbox",
+    "releaseDate": "2026-02-25",
     "isActive": true,
-    "synopsis": "Dunki follows the journey of four friends who dream of settling abroad. They take an illegal route called 'Donkey Flight' to reach their destination. The film explores themes of friendship, dreams, and the lengths people go to achieve their aspirations. A heartwarming tale that combines comedy, drama, and emotion.",
-    "trailerLink": "https://www.youtube.com/watch?v=Zd69FfhBmSc&pp=ygUNZHVua2kgdHJhaWxlcg%3D%3D",
-    "cast": [
-      "Shah Rukh Khan",
-      "Taapsee Pannu",
-      "Vicky Kaushal"
-    ],
-    "director": "Rajkumar Hirani",
-    "genre": [
-      "Comedy",
-      "Drama"
-    ],
-    "duration": "2h 30m",
-    "rating": "PG-13",
-    "language": "Hindi",
+    "synopsis": "",
+    "trailerLink": "",
+    "director": "",
+    "duration": "",
+    "rating": "",
+    "language": "",
     "isFeatured": true,
     "isPreviousDistribution": false,
-    "showTrailer": true
+    "showTrailer": false,
+    "id": "movie_1772038709671"
   },
   "movies": [
     {
@@ -50,7 +43,7 @@
       "duration": "2h 30m",
       "rating": "PG-13",
       "language": "Hindi",
-      "isFeatured": true,
+      "isFeatured": false,
       "isPreviousDistribution": false,
       "showTrailer": true
     },
@@ -103,6 +96,26 @@
       "rating": "A",
       "language": "Telugu, Hindi",
       "isFeatured": false
+    },
+    {
+      "title": "Bad Newz",
+      "description": "A Love Story",
+      "image": "",
+      "bannerImage": "/images/1772038676151_Bad_newz_Hori_1.jpg",
+      "bannerType": "trailer",
+      "bookingUrl": "https://mail.google.com/mail/u/0/#inbox",
+      "releaseDate": "2026-02-25",
+      "isActive": true,
+      "synopsis": "",
+      "trailerLink": "",
+      "director": "",
+      "duration": "",
+      "rating": "",
+      "language": "",
+      "isFeatured": true,
+      "isPreviousDistribution": false,
+      "showTrailer": false,
+      "id": "movie_1772038709671"
     }
   ]
 }

@@ -10,6 +10,16 @@ interface MovieCardProps {
 }
 
 export default function MovieCard({ movie, onLearnMore, showBookButton = true }: MovieCardProps) {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    const day = date.getDate()
+    const month = date.toLocaleDateString('en-US', { month: 'short' })
+    const year = date.getFullYear()
+    return { day, month, year }
+  }
+
+  const dateInfo = formatDate(movie.releaseDate)
+
   return (
     <div className={styles.movieCard}>
       <div className={styles.movieImageContainer}>
@@ -19,6 +29,12 @@ export default function MovieCard({ movie, onLearnMore, showBookButton = true }:
             backgroundImage: `url(${movie.image})`,
           }}
         ></div>
+        <div className={styles.titleBadge}>{movie.title}</div>
+        {/* Release Date Badge - Tile over Tile */}
+        <div className={styles.releaseDateBadge}>
+          <span className={styles.dateLabel}>{dateInfo.month}</span>
+          <span className={styles.dateValue}>{dateInfo.day}</span>
+        </div>
         <div className={styles.movieOverlay}>
           <div className={styles.overlayButtons}>
             {onLearnMore && (
@@ -43,13 +59,12 @@ export default function MovieCard({ movie, onLearnMore, showBookButton = true }:
         </div>
       </div>
       <div className={styles.movieInfo}>
-        <h3 className={styles.movieTitle}>{movie.title}</h3>
         <p className={styles.movieDescription}>{movie.description}</p>
         <div className={styles.movieFooter}>
           <span className={styles.releaseDate}>
-            Release: {new Date(movie.releaseDate).toLocaleDateString('en-US', {
+            {new Date(movie.releaseDate).toLocaleDateString('en-US', {
               year: 'numeric',
-              month: 'short',
+              month: 'long',
               day: 'numeric',
             })}
           </span>

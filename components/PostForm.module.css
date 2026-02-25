@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(4, 21, 15, 0.82);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,12 +15,14 @@
 
 .formContainer {
   background: var(--bg-card);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 2rem;
   max-width: 800px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
+  border: 1px solid var(--tile-border-soft);
+  box-shadow: var(--tile-shadow-hover);
 }
 
 .formContainer h2 {
@@ -50,9 +52,9 @@
 .formGroup input,
 .formGroup textarea {
   padding: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  background: var(--bg-dark);
+  border: 1px solid var(--tile-border-soft);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
   color: var(--text-color);
   font-family: inherit;
   font-size: 1rem;
@@ -77,8 +79,8 @@
   display: inline-block;
   padding: 0.5rem 1rem;
   background: var(--primary-color);
-  color: white;
-  border-radius: 6px;
+  color: var(--bg-dark);
+  border-radius: 10px;
   cursor: pointer;
   font-size: 0.9rem;
   text-align: center;
@@ -86,7 +88,7 @@
 }
 
 .uploadButton:hover {
-  background: #c40812;
+  background: var(--accent-color);
 }
 
 .imagePreview {
@@ -111,14 +113,14 @@
   background: var(--accent-color);
   color: var(--bg-dark);
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
   transition: background 0.3s ease;
 }
 
 .addTagButton:hover {
-  background: #e0b415;
+  background: var(--accent-color);
 }
 
 .tagsList {
@@ -133,7 +135,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 0.8rem;
-  background: var(--secondary-color);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--text-color);
   border-radius: 20px;
   font-size: 0.85rem;
@@ -189,7 +191,7 @@
 .cancelButton {
   padding: 0.75rem 2rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -198,16 +200,17 @@
 
 .saveButton {
   background: var(--primary-color);
-  color: white;
+  color: var(--bg-dark);
 }
 
 .saveButton:hover {
-  background: #c40812;
+  background: var(--accent-color);
 }
 
 .cancelButton {
-  background: var(--secondary-color);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--text-color);
+  border: 1px solid var(--tile-border-soft);
 }
 
 .cancelButton:hover {

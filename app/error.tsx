@@ -16,20 +16,33 @@ export default function Error({
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#0a0a0a',
-      color: '#ffffff'
+      background: 'linear-gradient(180deg, #0a1810 0%, #081410 35%, #070f0c 65%, #050b08 100%)',
+      color: '#eaeaea'
     }}>
-      <h2>Something went wrong!</h2>
+      <h2 style={{ 
+        fontSize: '2rem', 
+        marginBottom: '1rem',
+        background: 'linear-gradient(180deg, #ffd700, #b8860b)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        letterSpacing: '2px'
+      }}>
+        Something went wrong!
+      </h2>
       <button
         onClick={reset}
         style={{
           marginTop: '1rem',
-          padding: '0.5rem 1rem',
-          backgroundColor: '#e50914',
-          color: '#ffffff',
+          padding: '0.8rem 2rem',
+          background: 'linear-gradient(180deg, #ffd700, #b8860b)',
+          color: '#161006',
           border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer'
+          borderRadius: '8px',
+          cursor: 'pointer',
+          fontWeight: 700,
+          fontSize: '1rem',
+          letterSpacing: '1.5px',
+          textTransform: 'uppercase' as const,
         }}
       >
         Try again

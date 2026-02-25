@@ -1,6 +1,9 @@
 .movieGridSection {
-  padding: 4rem 0;
+  padding: 2rem 0 2.5rem;
   background-color: var(--bg-dark);
+  position: relative;
+  border-top: none;
+  border-bottom: none;
 }
 
 .container {
@@ -11,12 +14,16 @@
 
 .sectionTitle {
   font-size: 2.5rem;
-  margin-bottom: 3rem;
-  color: var(--text-color);
+  margin-bottom: 2rem;
   font-weight: 700;
   text-align: center;
   position: relative;
   padding-bottom: 1rem;
+  letter-spacing: 2px;
+  background: linear-gradient(180deg, #ffd700, #b8860b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .sectionTitle::after {
@@ -25,9 +32,9 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
+  width: 100px;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
   border-radius: 2px;
 }
 
@@ -39,13 +46,13 @@
 
 .movieGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 2rem;
 }
 
 @media (max-width: 768px) {
   .movieGridSection {
-    padding: 2rem 0;
+    padding: 2rem 0 1.75rem;
   }
   
   .container {
@@ -58,14 +65,14 @@
   }
   
   .movieGrid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .movieGridSection {
-    padding: 1.5rem 0;
+    padding: 1.35rem 0;
   }
   
   .container {

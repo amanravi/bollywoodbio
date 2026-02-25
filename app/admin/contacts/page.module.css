@@ -11,7 +11,7 @@
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 2px solid var(--tile-border-soft);
 }
 
 .header h1 {
@@ -27,26 +27,26 @@
 
 .unreadBadge {
   background: var(--primary-color);
-  color: var(--text-color);
+  color: var(--bg-dark);
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 999px;
   font-weight: 700;
   font-size: 0.9rem;
 }
 
 .backButton {
   padding: 0.8rem 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.07);
   color: var(--text-color);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+  border: 1px solid var(--tile-border-soft);
+  border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .backButton:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .contactsList {
@@ -59,15 +59,16 @@
 
 .contactCard {
   background: var(--bg-card);
-  border-radius: 8px;
+  border-radius: 14px;
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--tile-border-soft);
   transition: all 0.3s ease;
+  box-shadow: var(--tile-shadow);
 }
 
 .contactCard.unread {
   border-left: 4px solid var(--primary-color);
-  background: rgba(229, 9, 20, 0.05);
+  background: rgba(49, 196, 141, 0.08);
 }
 
 .contactHeader {
@@ -99,9 +100,9 @@
 
 .subject {
   background: var(--primary-color);
-  color: var(--text-color);
+  color: var(--bg-dark);
   padding: 0.3rem 0.8rem;
-  border-radius: 4px;
+  border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 600;
   text-transform: capitalize;
@@ -133,8 +134,8 @@
 .replyButton {
   padding: 0.6rem 1.5rem;
   background: var(--primary-color);
-  color: var(--text-color);
-  border-radius: 4px;
+  color: var(--bg-dark);
+  border-radius: 10px;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -142,7 +143,7 @@
 }
 
 .replyButton:hover {
-  background: #f40612;
+  background: var(--accent-color);
   transform: translateY(-2px);
 }
 

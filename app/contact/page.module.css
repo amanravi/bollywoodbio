@@ -1,7 +1,6 @@
 .contactSection {
   min-height: calc(100vh - 80px);
-  padding: 4rem 2rem;
-  background: var(--bg-dark);
+  padding: 6rem 2rem 4rem;
   color: var(--text-color);
 }
 
@@ -15,7 +14,7 @@
   font-weight: 800;
   margin-bottom: 3rem;
   text-align: center;
-  color: var(--text-color);
+  letter-spacing: 3px;
 }
 
 .content {
@@ -25,14 +24,18 @@
 }
 
 .info h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: var(--text-color);
+  background: linear-gradient(180deg, #ffd700, #b8860b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 1.5px;
 }
 
 .info > p {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   line-height: 1.8;
   color: var(--text-secondary);
   margin-bottom: 2rem;
@@ -41,21 +44,30 @@
 .contactDetails {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .detailItem {
   background: var(--bg-card);
   padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  border: 1px solid var(--tile-border-soft);
+  box-shadow: var(--tile-shadow);
+  transition: all 0.3s ease;
+}
+
+.detailItem:hover {
+  border-color: var(--tile-border);
+  transform: translateY(-2px);
+  box-shadow: var(--tile-shadow-hover);
 }
 
 .detailItem h3 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: var(--primary-color);
+  color: var(--color-gold-primary, #d4af37);
+  letter-spacing: 1px;
 }
 
 .detailItem p {
@@ -67,8 +79,9 @@
 .formContainer {
   background: var(--bg-card);
   padding: 2rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  border: 1px solid var(--tile-border-soft);
+  box-shadow: var(--tile-shadow);
 }
 
 @media (max-width: 968px) {
@@ -79,13 +92,13 @@
 
 @media (max-width: 768px) {
   .contactSection {
-    padding: 2rem 1rem;
+    padding: 5rem 1rem 2rem;
     min-height: auto;
   }
   
   .title {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    margin-bottom: 2rem;
   }
   
   .info h2 {
@@ -117,12 +130,12 @@
 
 @media (max-width: 480px) {
   .contactSection {
-    padding: 1.5rem 0.75rem;
+    padding: 4.5rem 0.75rem 1.5rem;
   }
   
   .title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
   }
   
   .content {

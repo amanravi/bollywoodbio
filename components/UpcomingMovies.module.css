@@ -1,6 +1,9 @@
 .upcomingSection {
-  padding: 4rem 0;
-  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--secondary-color) 100%);
+  padding: 3rem 0 2.75rem;
+  background-color: var(--bg-dark);
+  position: relative;
+  border-top: 1px solid var(--tile-border-soft);
+  border-bottom: 1px solid var(--tile-border-soft);
 }
 
 .container {
@@ -11,12 +14,16 @@
 
 .sectionTitle {
   font-size: 2.5rem;
-  margin-bottom: 3rem;
-  color: var(--text-color);
+  margin-bottom: 2rem;
   font-weight: 700;
   text-align: center;
   position: relative;
   padding-bottom: 1rem;
+  letter-spacing: 2px;
+  background: linear-gradient(180deg, #ffd700, #b8860b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .sectionTitle::after {
@@ -25,15 +32,15 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
+  width: 100px;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
   border-radius: 2px;
 }
 
 .moviesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 2rem;
 }
 
@@ -42,33 +49,30 @@
 }
 
 .releaseDate {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: var(--bg-card);
-  border-radius: 8px;
+  margin-top: 0.75rem;
+  padding: 0.75rem;
   text-align: center;
-  border: 2px solid var(--primary-color);
 }
 
 .releaseLabel {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .releaseValue {
   display: block;
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 0.95rem;
+  font-weight: 600;
   color: var(--primary-color);
 }
 
 @media (max-width: 768px) {
   .upcomingSection {
-    padding: 2rem 0;
+    padding: 2rem 0 1.75rem;
   }
 
   .container {
@@ -81,7 +85,7 @@
   }
 
   .moviesGrid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1rem;
   }
 
@@ -96,7 +100,7 @@
 
 @media (max-width: 480px) {
   .upcomingSection {
-    padding: 1.5rem 0;
+    padding: 1.35rem 0;
   }
 
   .sectionTitle {

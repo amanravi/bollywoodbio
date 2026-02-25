@@ -1,5 +1,20 @@
 import type { Metadata, Viewport } from 'next'
+import { Bebas_Neue, Inter } from 'next/font/google'
 import './globals.css'
+
+const displayFont = Bebas_Neue({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+  variable: '--font-display',
+})
+
+const bodyFont = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-body',
+})
 
 export const metadata: Metadata = {
   title: 'BollywoodBio - Book Your Movie Tickets',
@@ -23,7 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${bodyFont.className} ${displayFont.variable}`}>{children}</body>
     </html>
   )
 }

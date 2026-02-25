@@ -4,7 +4,8 @@ import Header from '@/components/Header'
 import MoviePageContent from '@/components/MoviePageContent'
 import UpcomingMovies from '@/components/UpcomingMovies'
 import PostsSection from '@/components/PostsSection'
-import TrailersSection from '@/components/TrailersSection'
+import TrailersShowcase from '@/components/TrailersShowcase'
+import Footer from '@/components/Footer'
 
 // Force dynamic rendering to pick up admin changes on Hostinger
 export const dynamic = 'force-dynamic'
@@ -17,18 +18,25 @@ export default async function Home() {
   const moviesWithTrailers = await getMoviesWithTrailers()
 
   return (
-    <main>
+    <main className="homeLuxury">
+      <div className="goldStars" aria-hidden="true" />
       <Header />
-      <MoviePageContent featured={featured} movies={movies} />
-      {moviesWithTrailers.length > 0 && (
-        <TrailersSection movies={moviesWithTrailers} />
-      )}
+      <MoviePageContent
+        featured={featured}
+        movies={movies}
+        bannerOverlay={
+          moviesWithTrailers.length > 0 ? (
+            <TrailersShowcase movies={moviesWithTrailers} />
+          ) : null
+        }
+      />
       {upcomingMovies.length > 0 && (
         <UpcomingMovies movies={upcomingMovies} />
       )}
       {featuredPosts.length > 0 && (
         <PostsSection posts={featuredPosts} featured={true} />
       )}
+      <Footer />
     </main>
   )
 }

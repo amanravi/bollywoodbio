@@ -35,6 +35,8 @@ export interface Movie {
   title: string
   description: string
   image: string
+  bannerImage?: string
+  bannerType?: 'trailer' | 'poster'
   bookingUrl: string
   releaseDate: string
   isActive: boolean

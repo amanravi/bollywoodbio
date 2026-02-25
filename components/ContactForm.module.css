@@ -8,7 +8,11 @@
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: var(--text-color);
+  background: linear-gradient(180deg, #ffd700, #b8860b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 1.5px;
 }
 
 .formGroup {
@@ -18,22 +22,23 @@
 }
 
 .formGroup label {
-  color: var(--text-color);
+  color: var(--text-secondary);
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
 }
 
 .formGroup input,
 .formGroup select,
 .formGroup textarea {
-  padding: 0.8rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--tile-border-soft);
+  border-radius: 10px;
   color: var(--text-color);
   font-size: 1rem;
   font-family: inherit;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .formGroup input:focus,
@@ -41,6 +46,12 @@
 .formGroup textarea:focus {
   outline: none;
   border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: rgba(208, 200, 184, 0.4);
 }
 
 .formGroup textarea {
@@ -50,30 +61,33 @@
 
 .successMessage {
   padding: 1rem;
-  background: rgba(76, 175, 80, 0.2);
-  border: 1px solid rgba(76, 175, 80, 0.5);
-  border-radius: 4px;
-  color: #4caf50;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+  color: #d4af37;
   text-align: center;
   font-weight: 500;
 }
 
 .submitButton {
   padding: 1rem 2rem;
-  background: var(--primary-color);
-  color: var(--text-color);
+  background: linear-gradient(180deg, #ffd700 0%, #b8860b 100%);
+  color: #161006;
   border: none;
-  border-radius: 4px;
-  font-size: 1.1rem;
+  border-radius: 10px;
+  font-size: 1.05rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 8px 20px rgba(164, 126, 18, 0.25);
 }
 
 .submitButton:hover {
-  background: #f40612;
+  filter: brightness(1.08);
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+  box-shadow: 0 12px 28px rgba(187, 147, 39, 0.35);
 }
 
 .submitButton:active {
@@ -107,7 +121,7 @@
   }
   
   .formGroup label {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
   
   .submitButton {

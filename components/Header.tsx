@@ -4,7 +4,11 @@ import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Header.module.css'
 
-export default function Header() {
+interface HeaderProps {
+  theme?: 'default' | 'luxury'
+}
+
+export default function Header({ theme = 'luxury' }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const toggleMenu = () => {
@@ -16,7 +20,7 @@ export default function Header() {
   }
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${theme === 'luxury' ? styles.luxuryHeader : ''}`}>
       <div className={styles.headerContainer}>
         <div className={styles.logo}>
           <Link href="/" onClick={closeMenu}>

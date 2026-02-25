@@ -1,0 +1,169 @@
+.footer {
+  background: linear-gradient(180deg, #060a08 0%, #040706 50%, #030504 100%);
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  padding: 3.5rem 0 0;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ═══ Bollywood Quote ═══ */
+.quoteSection {
+  text-align: center;
+  padding-bottom: 2.5rem;
+}
+
+.quote {
+  font-family: var(--font-display), 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 2px;
+  background: linear-gradient(180deg, #ffd700, #b8860b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.quoteAuthor {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(212, 175, 55, 0.6);
+  font-style: normal;
+  letter-spacing: 1px;
+}
+
+/* ═══ Divider ═══ */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.25), transparent);
+  margin-bottom: 2.5rem;
+}
+
+/* ═══ Footer Grid ═══ */
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+}
+
+.brandColumn {
+  padding-right: 1rem;
+}
+
+.brandName {
+  font-family: var(--font-display), 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: #d4af37;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.brandName:hover {
+  color: #ffd700;
+}
+
+.brandTagline {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(220, 215, 200, 0.6);
+  margin-bottom: 0;
+}
+
+.linksColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.columnTitle {
+  font-size: 1.1rem;
+  color: #e5e5e5;
+  margin-bottom: 1rem;
+  letter-spacing: 1.5px;
+}
+
+.footerNav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footerNav a {
+  color: rgba(220, 215, 200, 0.55);
+  font-size: 0.88rem;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.footerNav a:hover {
+  color: #d4af37;
+}
+
+/* ═══ Bottom Bar ═══ */
+.bottomBar {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  color: rgba(220, 215, 200, 0.4);
+  margin-bottom: 0;
+}
+
+.madeWith {
+  font-size: 0.8rem;
+  color: rgba(220, 215, 200, 0.4);
+  margin-bottom: 0;
+}
+
+/* ═══ Responsive ═══ */
+@media (max-width: 768px) {
+  .footer {
+    padding: 2.5rem 0 0;
+  }
+
+  .quote {
+    font-size: 1.6rem;
+  }
+
+  .footerGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .brandColumn {
+    grid-column: 1 / -1;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .quote {
+    font-size: 1.3rem;
+  }
+
+  .footerGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.25rem;
+  }
+}

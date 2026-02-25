@@ -5,13 +5,38 @@
 }
 
 :root {
-  --primary-color: #e50914;
-  --secondary-color: #141414;
+  /* ═══ Royal Cinematic Design System (Site-Wide) ═══ */
+  --color-emerald-1: #0f3d2e;
+  --color-emerald-2: #0b2c21;
+  --color-emerald-3: #081c17;
+  --color-matte-dark: #0b0f0e;
+  --color-gold-primary: #d4af37;
+  --color-gold-light: #ffd700;
+  --color-gold-dark: #b8860b;
+  --color-text-light: #eaeaea;
+
+  /* Primary palette — gold-accented luxury */
+  --primary-color: #d4af37;
+  --secondary-color: #0d1a14;
   --text-color: #ffffff;
-  --text-secondary: #b3b3b3;
-  --bg-dark: #0a0a0a;
-  --bg-card: #1a1a1a;
-  --accent-color: #f5c518;
+  --text-secondary: #d0c8b8;
+  --bg-dark: #091710;
+  --bg-card: #0c1311;
+  --bg-card-hover: #101a17;
+  --accent-color: #ffd700;
+  --emerald-green: #2aa879;
+  --emerald-dark: #0f2e1f;
+  --accent-purple: #6b46c1;
+  --accent-orange: #f97316;
+  --accent-blue: #3b82f6;
+  --accent-green: #10b981;
+  --tile-border: rgba(212, 175, 55, 0.25);
+  --tile-border-soft: rgba(212, 175, 55, 0.12);
+  --movie-title-color: #e2c369;
+  --tile-shadow: 0 16px 42px rgba(0, 0, 0, 0.55);
+  --tile-shadow-hover: 0 22px 52px rgba(0, 0, 0, 0.65), 0 0 20px rgba(212, 175, 55, 0.1);
+  --surface-glass: rgba(8, 20, 15, 0.82);
+  --overlay-emerald: rgba(0, 0, 0, 0.55);
 }
 
 html {
@@ -19,14 +44,15 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--bg-dark);
-  color: var(--text-color);
-  line-height: 1.6;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(15, 61, 46, 0.15), transparent 45%),
+    radial-gradient(ellipse at 80% 100%, rgba(15, 61, 46, 0.08), transparent 45%),
+    linear-gradient(180deg, #0a1810 0%, #081410 35%, #070f0c 65%, #050b08 100%);
+  color: var(--color-text-light);
+  line-height: 1.75;
   overflow-x: hidden;
   margin: 0;
   padding: 0;
@@ -36,6 +62,204 @@ main {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  position: relative;
+  isolation: isolate;
+}
+
+/* ═══ Cinematic vignette — global ═══ */
+main::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle at center, transparent 55%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+main > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══ Homepage-only extras ═══ */
+.homeLuxury {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.02), transparent 60%),
+    transparent;
+}
+
+/* ═══ Full-page gold star particles ═══ */
+.goldStars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2 !important;
+  overflow: hidden;
+}
+
+/* Left & center particles */
+.goldStars::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  box-shadow:
+    25px calc(100vh - 60px) 0 0 rgba(212, 175, 55, 0.6),
+    48px calc(100vh - 110px) 0 0 rgba(255, 215, 0, 0.5),
+    12px calc(100vh - 160px) 0 -1px rgba(212, 175, 55, 0.55),
+    70px calc(100vh - 40px) 0 0 rgba(255, 215, 0, 0.45),
+    35px calc(100vh - 200px) 0 0 rgba(212, 175, 55, 0.45),
+    90px calc(100vh - 85px) 0 -1px rgba(255, 215, 0, 0.5),
+    55px calc(100vh - 250px) 0 0 rgba(212, 175, 55, 0.4),
+    8px calc(100vh - 300px) 0 0 rgba(255, 215, 0, 0.35),
+    110px calc(100vh - 130px) 0 -1px rgba(212, 175, 55, 0.45),
+    78px calc(100vh - 330px) 0 0 rgba(255, 215, 0, 0.3),
+    130px calc(100vh - 50px) 0 0 rgba(212, 175, 55, 0.5),
+    42px calc(100vh - 380px) 0 -1px rgba(255, 215, 0, 0.3),
+    155px calc(100vh - 180px) 0 0 rgba(212, 175, 55, 0.35),
+    100px calc(100vh - 420px) 0 0 rgba(255, 215, 0, 0.25),
+    180px calc(100vh - 70px) 0 0 rgba(212, 175, 55, 0.4),
+    65px calc(100vh - 460px) 0 -1px rgba(255, 215, 0, 0.25),
+    200px calc(100vh - 280px) 0 0 rgba(212, 175, 55, 0.3),
+    145px calc(100vh - 360px) 0 0 rgba(255, 215, 0, 0.25),
+    220px calc(100vh - 150px) 0 -1px rgba(212, 175, 55, 0.35),
+    170px calc(100vh - 490px) 0 0 rgba(255, 215, 0, 0.2),
+    30px 80px 0 0 rgba(212, 175, 55, 0.35),
+    60px 180px 0 0 rgba(255, 215, 0, 0.25),
+    18px 300px 0 -1px rgba(212, 175, 55, 0.3),
+    85px 130px 0 0 rgba(255, 215, 0, 0.3),
+    45px 420px 0 0 rgba(212, 175, 55, 0.25),
+    105px 260px 0 -1px rgba(255, 215, 0, 0.2),
+    70px 520px 0 0 rgba(212, 175, 55, 0.2),
+    125px 380px 0 0 rgba(255, 215, 0, 0.2),
+    55px 620px 0 -1px rgba(212, 175, 55, 0.15),
+    150px 470px 0 0 rgba(255, 215, 0, 0.15),
+    calc(50vw - 200px) 200px 0 0 rgba(212, 175, 55, 0.15),
+    calc(50vw - 80px) 400px 0 -1px rgba(255, 215, 0, 0.12),
+    calc(50vw + 60px) 150px 0 0 rgba(212, 175, 55, 0.12),
+    calc(50vw + 150px) 350px 0 0 rgba(255, 215, 0, 0.1),
+    calc(50vw - 140px) 550px 0 -1px rgba(212, 175, 55, 0.1),
+    calc(50vw + 100px) 600px 0 0 rgba(255, 215, 0, 0.1),
+    calc(50vw - 50px) calc(100vh - 200px) 0 0 rgba(212, 175, 55, 0.12),
+    calc(50vw + 30px) calc(100vh - 350px) 0 -1px rgba(255, 215, 0, 0.1);
+}
+
+/* Right & bottom-right particles */
+.goldStars::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  box-shadow:
+    -30px calc(100vh - 55px) 0 0 rgba(212, 175, 55, 0.55),
+    -55px calc(100vh - 100px) 0 0 rgba(255, 215, 0, 0.5),
+    -15px calc(100vh - 150px) 0 -1px rgba(212, 175, 55, 0.5),
+    -75px calc(100vh - 35px) 0 0 rgba(255, 215, 0, 0.45),
+    -40px calc(100vh - 195px) 0 0 rgba(212, 175, 55, 0.45),
+    -95px calc(100vh - 80px) 0 -1px rgba(255, 215, 0, 0.5),
+    -60px calc(100vh - 245px) 0 0 rgba(212, 175, 55, 0.4),
+    -10px calc(100vh - 290px) 0 0 rgba(255, 215, 0, 0.35),
+    -115px calc(100vh - 125px) 0 -1px rgba(212, 175, 55, 0.45),
+    -82px calc(100vh - 320px) 0 0 rgba(255, 215, 0, 0.3),
+    -135px calc(100vh - 45px) 0 0 rgba(212, 175, 55, 0.5),
+    -48px calc(100vh - 370px) 0 -1px rgba(255, 215, 0, 0.3),
+    -160px calc(100vh - 175px) 0 0 rgba(212, 175, 55, 0.35),
+    -105px calc(100vh - 410px) 0 0 rgba(255, 215, 0, 0.25),
+    -185px calc(100vh - 65px) 0 0 rgba(212, 175, 55, 0.4),
+    -70px calc(100vh - 450px) 0 -1px rgba(255, 215, 0, 0.25),
+    -205px calc(100vh - 270px) 0 0 rgba(212, 175, 55, 0.3),
+    -150px calc(100vh - 350px) 0 0 rgba(255, 215, 0, 0.25),
+    -225px calc(100vh - 145px) 0 -1px rgba(212, 175, 55, 0.35),
+    -175px calc(100vh - 480px) 0 0 rgba(255, 215, 0, 0.2),
+    -35px 90px 0 0 rgba(212, 175, 55, 0.35),
+    -65px 190px 0 0 rgba(255, 215, 0, 0.25),
+    -20px 310px 0 -1px rgba(212, 175, 55, 0.3),
+    -90px 140px 0 0 rgba(255, 215, 0, 0.3),
+    -50px 430px 0 0 rgba(212, 175, 55, 0.25),
+    -110px 270px 0 -1px rgba(255, 215, 0, 0.2),
+    -75px 530px 0 0 rgba(212, 175, 55, 0.2),
+    -130px 390px 0 0 rgba(255, 215, 0, 0.2),
+    -58px 630px 0 -1px rgba(212, 175, 55, 0.15),
+    -155px 480px 0 0 rgba(255, 215, 0, 0.15),
+    -40px 40px 0 0 rgba(212, 175, 55, 0.25),
+    -120px 60px 0 -1px rgba(255, 215, 0, 0.2),
+    -180px 20px 0 0 rgba(212, 175, 55, 0.2),
+    -200px 100px 0 0 rgba(255, 215, 0, 0.15),
+    -250px 50px 0 -1px rgba(212, 175, 55, 0.15);
+}
+
+/* Homepage section overrides */
+.homeLuxury section {
+  position: relative;
+  background: transparent !important;
+}
+
+.homeLuxury .movieGridSection,
+.homeLuxury .upcomingSection,
+.homeLuxury .postsSection {
+  background: linear-gradient(
+    180deg,
+    rgba(6, 9, 8, 0.96) 0%,
+    rgba(5, 8, 7, 0.97) 50%,
+    rgba(4, 7, 6, 0.96) 100%
+  ) !important;
+}
+
+.homeLuxury .movieGridSection::before,
+.homeLuxury .movieGridSection::after,
+.homeLuxury .upcomingSection::before,
+.homeLuxury .upcomingSection::after,
+.homeLuxury .postsSection::before,
+.homeLuxury .postsSection::after {
+  display: none !important;
+}
+
+/* ═══ Global luxury typography & accents ═══ */
+
+/* Gold gradient headings for page titles */
+.goldTitle {
+  background: linear-gradient(180deg, var(--color-gold-light), var(--color-gold-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
+}
+
+/* Subtle gold section dividers */
+.homeLuxury section + section::before,
+.luxuryDivider {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+  z-index: 2;
+}
+
+/* Gold gradient text for section headings on homepage */
+.homeLuxury .sectionTitle,
+.homeLuxury .bannerTitle {
+  background: linear-gradient(180deg, var(--color-gold-light), var(--color-gold-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Muted paragraph text */
+.homeLuxury p {
+  color: #e0dace;
+}
+
+.homeLuxury .bannerDescription {
+  color: #d5cdbf;
 }
 
 code {
@@ -46,6 +270,17 @@ code {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display), 'Bebas Neue', sans-serif;
+  line-height: 1.2;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.8rem;
 }
 
 button {

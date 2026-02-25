@@ -36,20 +36,24 @@ export default function FeaturedBanner({ movie, onLearnMore }: FeaturedBannerPro
   }
 
   const videoId = movie.trailerLink ? getYouTubeVideoId(movie.trailerLink) : null
+  const bannerType = movie.bannerType || (videoId ? 'trailer' : 'poster')
   const thumbnailUrl = videoId 
     ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
     : movie.image
+  const bannerImageUrl = movie.bannerImage || thumbnailUrl || movie.image
 
   // Auto-play video after component mounts if there's a trailer
   useEffect(() => {
-    if (videoId) {
+    if (videoId && bannerType === 'trailer') {
       // Small delay to ensure smooth transition
       const timer = setTimeout(() => {
         setIsPlaying(true)
       }, 500)
       return () => clearTimeout(timer)
+    } else {
+      setIsPlaying(false)
     }
-  }, [videoId])
+  }, [videoId, bannerType])
 
   const handlePlayClick = () => {
     setIsPlaying(true)
@@ -58,7 +62,7 @@ export default function FeaturedBanner({ movie, onLearnMore }: FeaturedBannerPro
   return (
     <section className={styles.featuredBanner}>
       <div className={styles.bannerContent}>
-        {isPlaying && videoId ? (
+        {isPlaying && videoId && bannerType === 'trailer' ? (
           <div className={styles.videoContainer}>
             <iframe
               className={styles.youtubeVideo}
@@ -82,9 +86,9 @@ export default function FeaturedBanner({ movie, onLearnMore }: FeaturedBannerPro
           <>
             <div 
               className={styles.bannerBackground}
-              style={{ backgroundImage: `url(${thumbnailUrl})` }}
+              style={{ backgroundImage: `url(${bannerImageUrl})` }}
             />
-            {videoId && (
+            {videoId && bannerType === 'trailer' && (
               <button 
                 className={styles.playButton}
                 onClick={handlePlayClick}

@@ -1,13 +1,15 @@
 import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 import styles from './page.module.css'
 
 export default function AboutPage() {
   return (
     <main>
+      <div className="goldStars" aria-hidden="true" />
       <Header />
       <section className={styles.aboutSection}>
         <div className={styles.container}>
-          <h1 className={styles.title}>About BollywoodBio</h1>
+          <h1 className={`${styles.title} goldTitle`}>About BollywoodBio</h1>
           
           <div className={styles.content}>
             <div className={styles.section}>
@@ -50,6 +52,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   )
 }

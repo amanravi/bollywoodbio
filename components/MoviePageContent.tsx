@@ -9,9 +9,10 @@ import MovieModal from './MovieModal'
 interface MoviePageContentProps {
   featured: Movie | null
   movies: Movie[]
+  bannerOverlay?: React.ReactNode
 }
 
-export default function MoviePageContent({ featured, movies }: MoviePageContentProps) {
+export default function MoviePageContent({ featured, movies, bannerOverlay }: MoviePageContentProps) {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -33,6 +34,7 @@ export default function MoviePageContent({ featured, movies }: MoviePageContentP
           onLearnMore={() => handleLearnMore(featured)}
         />
       )}
+      {bannerOverlay}
       {movies.length > 0 && (
         <MovieGrid 
           movies={movies}

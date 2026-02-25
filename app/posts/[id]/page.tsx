@@ -1,5 +1,6 @@
 import { getPostById, getPostsData } from '@/lib/posts'
 import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import styles from './page.module.css'
@@ -30,6 +31,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
 
   return (
     <main>
+      <div className="goldStars" aria-hidden="true" />
       <Header />
       <article className={styles.postPage}>
         <div className={styles.container}>
@@ -47,7 +49,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
             {post.category && (
               <span className={styles.category}>{post.category}</span>
             )}
-            <h1 className={styles.postTitle}>{post.title}</h1>
+            <h1 className={`${styles.postTitle} goldTitle`}>{post.title}</h1>
             <div className={styles.postMeta}>
               {post.author && (
                 <span className={styles.author}>By {post.author}</span>
@@ -80,6 +82,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </article>
+      <Footer />
     </main>
   )
 }
