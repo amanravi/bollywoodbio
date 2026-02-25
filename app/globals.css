@@ -37,6 +37,10 @@
   --tile-shadow-hover: 0 22px 52px rgba(0, 0, 0, 0.65), 0 0 20px rgba(212, 175, 55, 0.1);
   --surface-glass: rgba(8, 20, 15, 0.82);
   --overlay-emerald: rgba(0, 0, 0, 0.55);
+
+  /* Font families loaded via Google Fonts <link> in layout */
+  --font-display: 'Bebas Neue', 'Arial Black', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 html {
@@ -44,7 +48,7 @@ html {
 }
 
 body {
-  font-family: inherit;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background:

@@ -1,32 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
-let fontClasses = ''
-
-try {
-  // Dynamic import pattern to prevent font loading from crashing the layout
-  const { Bebas_Neue, Inter } = require('next/font/google')
-  
-  const displayFont = Bebas_Neue({
-    subsets: ['latin'],
-    weight: '400',
-    display: 'swap',
-    variable: '--font-display',
-  })
-
-  const bodyFont = Inter({
-    subsets: ['latin'],
-    weight: ['400', '500', '600', '700'],
-    display: 'swap',
-    variable: '--font-body',
-  })
-
-  fontClasses = `${bodyFont.className} ${displayFont.variable}`
-} catch (error) {
-  console.error('[Layout] Font loading failed:', error)
-  fontClasses = ''
-}
-
 export const metadata: Metadata = {
   title: 'BollywoodBio - Book Your Movie Tickets',
   description: 'Your premier destination for Bollywood movies. Book tickets for the latest releases.',
@@ -49,7 +23,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={fontClasses}>{children}</body>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>{children}</body>
     </html>
   )
 }
