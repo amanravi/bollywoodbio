@@ -16,6 +16,7 @@ export default function MovieForm({ movie, onSave, onCancel }: MovieFormProps) {
     description: '',
     image: '',
     bannerImage: '',
+    bannerImages: [],
     bannerType: 'trailer',
     bookingUrl: '',
     releaseDate: new Date().toISOString().split('T')[0],
@@ -88,17 +89,26 @@ export default function MovieForm({ movie, onSave, onCancel }: MovieFormProps) {
 
     setBannerUploading(true)
     try {
-      const formData = new FormData()
-      formData.append('file', file)
+      const uploadData = new FormData()
+      uploadData.append('file', file)
 
       const response = await fetch('/api/upload', {
         method: 'POST',
-        body: formData,
+        body: uploadData,
       })
 
       const data = await response.json()
       if (data.success) {
-        setFormData(prev => ({ ...prev, bannerImage: data.url }))
+        setFormData(prev => {
+          const currentImages = prev.bannerImages || []
+          // Also set bannerImage to the first image for backward compatibility
+          const newImages = [...currentImages, data.url]
+          return {
+            ...prev,
+            bannerImages: newImages,
+            bannerImage: newImages[0],
+          }
+        })
       } else {
         alert('Upload failed')
       }
@@ -106,7 +116,21 @@ export default function MovieForm({ movie, onSave, onCancel }: MovieFormProps) {
       alert('Error uploading file')
     } finally {
       setBannerUploading(false)
+      // Reset file input so the same file can be uploaded again
+      e.target.value = ''
     }
+  }
+
+  const handleRemoveBannerImage = (indexToRemove: number) => {
+    setFormData(prev => {
+      const currentImages = prev.bannerImages || []
+      const newImages = currentImages.filter((_, i) => i !== indexToRemove)
+      return {
+        ...prev,
+        bannerImages: newImages,
+        bannerImage: newImages[0] || '',
+      }
+    })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -314,7 +338,7 @@ export default function MovieForm({ movie, onSave, onCancel }: MovieFormProps) {
           </div>
 
           <div className={styles.formGroup}>
-            <label>Banner Image (Landscape)</label>
+            <label>Banner Images (Landscape) — Upload multiple for slideshow</label>
             <div className={styles.uploadSection}>
               <input
                 type="file"
@@ -323,12 +347,29 @@ export default function MovieForm({ movie, onSave, onCancel }: MovieFormProps) {
                 disabled={bannerUploading}
               />
               {bannerUploading && <span>Uploading...</span>}
-              {formData.bannerImage && (
+              {(formData.bannerImages && formData.bannerImages.length > 0) ? (
+                <div className={styles.bannerImagesGrid}>
+                  {formData.bannerImages.map((img, index) => (
+                    <div key={index} className={styles.bannerImageItem}>
+                      <img src={img} alt={`Banner ${index + 1}`} />
+                      <button
+                        type="button"
+                        className={styles.removeBannerBtn}
+                        onClick={() => handleRemoveBannerImage(index)}
+                        title="Remove image"
+                      >
+                        ✕
+                      </button>
+                      <span className={styles.bannerImageIndex}>#{index + 1}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : formData.bannerImage ? (
                 <div className={styles.imagePreview}>
                   <img src={formData.bannerImage} alt="Banner Preview" />
                   <span>{formData.bannerImage}</span>
                 </div>
-              )}
+              ) : null}
             </div>
           </div>
 

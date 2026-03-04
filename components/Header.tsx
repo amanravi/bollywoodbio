@@ -46,6 +46,7 @@ export default function Header({ theme = 'luxury' }: HeaderProps) {
         
         <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : ''}`}>
           <Link href="/" onClick={closeMenu}>Home</Link>
+          <Link href="/events" onClick={closeMenu}>Events</Link>
           <Link href="/posts" onClick={closeMenu}>Articles</Link>
           <Link href="/previous" onClick={closeMenu}>Previous</Link>
           <Link href="/about" onClick={closeMenu}>About</Link>

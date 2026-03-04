@@ -5,14 +5,17 @@ import { Movie } from '@/lib/movies'
 import FeaturedBanner from './FeaturedBanner'
 import MovieGrid from './MovieGrid'
 import MovieModal from './MovieModal'
+import UpcomingMovies from './UpcomingMovies'
 
 interface MoviePageContentProps {
   featured: Movie | null
   movies: Movie[]
+  upcomingMovies?: Movie[]
   bannerOverlay?: React.ReactNode
+  afterMoviesContent?: React.ReactNode
 }
 
-export default function MoviePageContent({ featured, movies, bannerOverlay }: MoviePageContentProps) {
+export default function MoviePageContent({ featured, movies, upcomingMovies, bannerOverlay, afterMoviesContent }: MoviePageContentProps) {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -41,6 +44,13 @@ export default function MoviePageContent({ featured, movies, bannerOverlay }: Mo
           onLearnMore={(movie) => handleLearnMore(movie)}
         />
       )}
+      {upcomingMovies && upcomingMovies.length > 0 && (
+        <UpcomingMovies 
+          movies={upcomingMovies}
+          onLearnMore={(movie) => handleLearnMore(movie)}
+        />
+      )}
+      {afterMoviesContent}
       <MovieModal
         movie={selectedMovie}
         isOpen={isModalOpen}

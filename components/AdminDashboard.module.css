@@ -112,7 +112,8 @@
 }
 
 .moviesList h2,
-.postsList h2 {
+.postsList h2,
+.eventsList h2 {
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
 }
@@ -343,6 +344,61 @@
   margin-top: 0.5rem;
 }
 
+/* Events styles */
+.eventsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.eventCard {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 1.5rem;
+  border: 1px solid var(--tile-border-soft);
+  box-shadow: var(--tile-shadow);
+}
+
+.pastEvent {
+  opacity: 0.6;
+}
+
+.eventHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.eventHeader h3 {
+  font-size: 1.3rem;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.eventTypeBadge {
+  background: #9b59b6;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.eventInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.eventMeta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
 @media (max-width: 768px) {
   .dashboard {
     padding: 1rem;
@@ -353,7 +409,8 @@
     align-items: flex-start;
   }
   .moviesGrid,
-  .postsGrid {
+  .postsGrid,
+  .eventsGrid {
     grid-template-columns: 1fr;
   }
   .tabs {

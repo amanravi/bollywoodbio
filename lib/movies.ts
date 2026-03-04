@@ -36,6 +36,7 @@ export interface Movie {
   description: string
   image: string
   bannerImage?: string
+  bannerImages?: string[]
   bannerType?: 'trailer' | 'poster'
   bookingUrl: string
   releaseDate: string
@@ -103,6 +104,17 @@ export async function getUpcomingMovies(): Promise<Movie[]> {
     })
   
   return upcoming
+}
+
+export async function getMovieById(id: string): Promise<Movie | null> {
+  const moviesData = await getMoviesDataFromFile()
+  const movie = (moviesData.movies as Movie[]).find((m: Movie) => m.id === id)
+  return movie || null
+}
+
+export async function getAllMovieIds(): Promise<string[]> {
+  const moviesData = await getMoviesDataFromFile()
+  return (moviesData.movies as Movie[]).map((m: Movie) => m.id)
 }
 
 export async function getMoviesWithTrailers(): Promise<Movie[]> {

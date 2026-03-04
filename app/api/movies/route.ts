@@ -1,21 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { readFile, writeFile } from 'fs/promises'
-import { join } from 'path'
+import { readFile, writeFile, mkdir } from 'fs/promises'
+import { join, dirname } from 'path'
+import { existsSync } from 'fs'
 
 const MOVIES_FILE = join(process.cwd(), 'data', 'movies.json')
+const DEFAULT_DATA = JSON.stringify({ featured: null, movies: [] }, null, 2)
+
+async function ensureMoviesFile() {
+  if (!existsSync(MOVIES_FILE)) {
+    await mkdir(dirname(MOVIES_FILE), { recursive: true })
+    await writeFile(MOVIES_FILE, DEFAULT_DATA, 'utf8')
+  }
+}
+
+async function readMoviesFile() {
+  await ensureMoviesFile()
+  const fileContents = await readFile(MOVIES_FILE, 'utf8')
+  return JSON.parse(fileContents)
+}
 
 // Helper to check authentication
 function isAuthenticated(request: NextRequest): boolean {
-  // In a real app, use proper session/auth tokens
-  // For now, we'll check a header or use server-side session
   const authHeader = request.headers.get('authorization')
   return authHeader === 'Bearer admin_authenticated'
 }
 
 export async function GET() {
   try {
-    const fileContents = await readFile(MOVIES_FILE, 'utf8')
-    const data = JSON.parse(fileContents)
+    const data = await readMoviesFile()
     return NextResponse.json(data)
   } catch (error) {
     return NextResponse.json(
@@ -28,8 +40,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const movie = await request.json()
-    const fileContents = await readFile(MOVIES_FILE, 'utf8')
-    const data = JSON.parse(fileContents)
+    const data = await readMoviesFile()
 
     // Generate ID if not provided
     if (!movie.id) {
@@ -63,8 +74,7 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const movie = await request.json()
-    const fileContents = await readFile(MOVIES_FILE, 'utf8')
-    const data = JSON.parse(fileContents)
+    const data = await readMoviesFile()
 
     // Update movie in array
     const index = data.movies.findIndex((m: any) => m.id === movie.id)
@@ -105,8 +115,7 @@ export async function PUT(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const { id } = await request.json()
-    const fileContents = await readFile(MOVIES_FILE, 'utf8')
-    const data = JSON.parse(fileContents)
+    const data = await readMoviesFile()
 
     // Remove movie from array
     data.movies = data.movies.filter((m: any) => m.id !== id)

@@ -1,9 +1,10 @@
 import { getMoviesData, getUpcomingMovies, getMoviesWithTrailers } from '@/lib/movies'
 import { getFeaturedPosts } from '@/lib/posts'
+import { getActiveEventsForHomepage } from '@/lib/events'
 import Header from '@/components/Header'
 import MoviePageContent from '@/components/MoviePageContent'
-import UpcomingMovies from '@/components/UpcomingMovies'
 import PostsSection from '@/components/PostsSection'
+import EventsSection from '@/components/EventsSection'
 import TrailersShowcase from '@/components/TrailersShowcase'
 import Footer from '@/components/Footer'
 
@@ -17,6 +18,7 @@ export default async function Home() {
   let upcomingMovies: any[] = []
   let featuredPosts: any[] = []
   let moviesWithTrailers: any[] = []
+  let activeEvents: any[] = []
 
   try {
     const moviesData = await getMoviesData()
@@ -44,6 +46,12 @@ export default async function Home() {
     console.error('[Homepage] Failed to load trailers:', error)
   }
 
+  try {
+    activeEvents = await getActiveEventsForHomepage()
+  } catch (error) {
+    console.error('[Homepage] Failed to load events:', error)
+  }
+
   return (
     <main className="homeLuxury">
       <div className="goldStars" aria-hidden="true" />
@@ -51,14 +59,15 @@ export default async function Home() {
       <MoviePageContent
         featured={featured}
         movies={movies}
+        upcomingMovies={upcomingMovies}
         bannerOverlay={
           moviesWithTrailers.length > 0 ? (
             <TrailersShowcase movies={moviesWithTrailers} />
           ) : null
         }
       />
-      {upcomingMovies.length > 0 && (
-        <UpcomingMovies movies={upcomingMovies} />
+      {activeEvents.length > 0 && (
+        <EventsSection events={activeEvents} />
       )}
       {featuredPosts.length > 0 && (
         <PostsSection posts={featuredPosts} featured={true} />

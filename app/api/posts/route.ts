@@ -1,13 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { readFile, writeFile } from 'fs/promises'
-import { join } from 'path'
+import { readFile, writeFile, mkdir } from 'fs/promises'
+import { join, dirname } from 'path'
+import { existsSync } from 'fs'
 
 const POSTS_FILE = join(process.cwd(), 'data', 'posts.json')
+const DEFAULT_DATA = JSON.stringify({ posts: [] }, null, 2)
+
+async function ensurePostsFile() {
+  if (!existsSync(POSTS_FILE)) {
+    await mkdir(dirname(POSTS_FILE), { recursive: true })
+    await writeFile(POSTS_FILE, DEFAULT_DATA, 'utf8')
+  }
+}
+
+async function readPostsFile() {
+  await ensurePostsFile()
+  const fileContents = await readFile(POSTS_FILE, 'utf8')
+  return JSON.parse(fileContents)
+}
 
 export async function GET() {
   try {
-    const fileContents = await readFile(POSTS_FILE, 'utf8')
-    const data = JSON.parse(fileContents)
+    const data = await readPostsFile()
     return NextResponse.json(data)
   } catch (error) {
     return NextResponse.json(
@@ -20,8 +34,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const post = await request.json()
-    const fileContents = await readFile(POSTS_FILE, 'utf8')
-    const data = JSON.parse(fileContents)
+    const data = await readPostsFile()
 
     // Generate ID if not provided
     if (!post.id) {
@@ -49,8 +62,7 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const post = await request.json()
-    const fileContents = await readFile(POSTS_FILE, 'utf8')
-    const data = JSON.parse(fileContents)
+    const data = await readPostsFile()
 
     // Update post in array
     const index = data.posts.findIndex((p: any) => p.id === post.id)
@@ -76,8 +88,7 @@ export async function PUT(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const { id } = await request.json()
-    const fileContents = await readFile(POSTS_FILE, 'utf8')
-    const data = JSON.parse(fileContents)
+    const data = await readPostsFile()
 
     // Remove post from array
     data.posts = data.posts.filter((p: any) => p.id !== id)

@@ -33,6 +33,18 @@
   background-repeat: no-repeat;
 }
 
+/* Slideshow styles */
+.slideshowSlide {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 0;
+}
+
+.slideActive {
+  opacity: 1;
+  z-index: 1;
+}
+
 .videoContainer {
   position: absolute;
   top: 0;
@@ -206,50 +218,94 @@
   box-shadow: 0 14px 30px rgba(187, 147, 39, 0.36);
 }
 
+/* Slideshow navigation dots */
+.slideshowDots {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1.2rem;
+}
+
+.slideshowDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(212, 175, 55, 0.7);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.slideshowDot:hover {
+  background: rgba(212, 175, 55, 0.5);
+}
+
+.dotActive {
+  background: rgba(212, 175, 55, 1);
+  border-color: rgba(212, 175, 55, 1);
+  transform: scale(1.2);
+}
+
 @media (max-width: 768px) {
   .featuredBanner {
     height: 55vh;
     min-height: 360px;
   }
-  
+
+  .bannerOverlay {
+    background:
+      radial-gradient(ellipse at 50% 65%, rgba(212, 175, 55, 0.04) 0%, transparent 55%),
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.35) 0%,
+        rgba(0, 0, 0, 0.30) 30%,
+        rgba(0, 0, 0, 0.55) 55%,
+        rgba(0, 0, 0, 0.92) 100%
+      );
+  }
+
   .bannerText {
     padding: 1.1rem 1.25rem;
     max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  
+
   .bannerTitle {
-    font-size: 2.4rem;
-    margin-bottom: 0.75rem;
+    font-size: 2.6rem;
+    margin-bottom: 0.6rem;
     letter-spacing: 3px;
     filter:
-      drop-shadow(0 0 8px rgba(212, 175, 55, 0.4))
-      drop-shadow(0 3px 14px rgba(0, 0, 0, 0.7));
+      drop-shadow(0 0 10px rgba(212, 175, 55, 0.5))
+      drop-shadow(0 4px 16px rgba(0, 0, 0, 0.9));
   }
-  
+
+  /* Hide description on mobile to give title more room */
   .bannerDescription {
-    font-size: 0.95rem;
-    margin-bottom: 1.15rem;
+    display: none;
   }
-  
+
   .bannerButtons {
-    flex-direction: column;
-    gap: 0.75rem;
-    width: 100%;
+    flex-direction: row;
+    gap: 0.6rem;
+    width: auto;
   }
-  
+
   .learnMoreButton,
   .bookNowButton {
-    width: 100%;
-    padding: 0.9rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.7rem 1.6rem;
+    font-size: 0.85rem;
     text-align: center;
+    letter-spacing: 1.5px;
   }
-  
+
   .playButton {
     width: 70px;
     height: 70px;
   }
-  
+
   .playIcon {
     width: 35px;
     height: 35px;
@@ -258,39 +314,41 @@
 
 @media (max-width: 480px) {
   .featuredBanner {
-    height: 48vh;
+    height: 50vh;
     min-height: 300px;
   }
-  
+
   .bannerText {
     padding: 0.9rem;
   }
-  
+
   .bannerTitle {
-    font-size: 1.8rem;
+    font-size: 2rem;
     line-height: 1.15;
     letter-spacing: 2px;
     filter:
-      drop-shadow(0 0 6px rgba(212, 175, 55, 0.35))
-      drop-shadow(0 2px 10px rgba(0, 0, 0, 0.7));
+      drop-shadow(0 0 8px rgba(212, 175, 55, 0.45))
+      drop-shadow(0 3px 12px rgba(0, 0, 0, 0.85));
   }
-  
-  .bannerDescription {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
+
+  .bannerButtons {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
   }
-  
+
   .learnMoreButton,
   .bookNowButton {
-    padding: 0.8rem 1.2rem;
-    font-size: 0.95rem;
+    width: 100%;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
   }
-  
+
   .playButton {
     width: 60px;
     height: 60px;
   }
-  
+
   .playIcon {
     width: 30px;
     height: 30px;

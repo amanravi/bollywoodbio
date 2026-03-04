@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react'
 import { Movie } from '@/lib/movies'
 import { Post } from '@/lib/posts'
+import { Event } from '@/lib/event-types'
 import MovieForm from './MovieForm'
 import PostForm from './PostForm'
+import EventForm from './EventForm'
 import styles from './AdminDashboard.module.css'
 
 interface AdminDashboardProps {
@@ -12,19 +14,23 @@ interface AdminDashboardProps {
 }
 
 export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
-  const [activeTab, setActiveTab] = useState<'movies' | 'posts'>('movies')
+  const [activeTab, setActiveTab] = useState<'movies' | 'posts' | 'events'>('movies')
   const [movies, setMovies] = useState<Movie[]>([])
   const [posts, setPosts] = useState<Post[]>([])
+  const [events, setEvents] = useState<Event[]>([])
   const [featured, setFeatured] = useState<Movie | null>(null)
   const [loading, setLoading] = useState(true)
   const [editingMovie, setEditingMovie] = useState<Movie | null>(null)
   const [editingPost, setEditingPost] = useState<Post | null>(null)
+  const [editingEvent, setEditingEvent] = useState<Event | null>(null)
   const [showMovieForm, setShowMovieForm] = useState(false)
   const [showPostForm, setShowPostForm] = useState(false)
+  const [showEventForm, setShowEventForm] = useState(false)
 
   useEffect(() => {
     loadMovies()
     loadPosts()
+    loadEvents()
   }, [])
 
   const loadMovies = async () => {
@@ -47,6 +53,16 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
       setPosts(data.posts || [])
     } catch (error) {
       console.error('Failed to load posts:', error)
+    }
+  }
+
+  const loadEvents = async () => {
+    try {
+      const response = await fetch('/api/events')
+      const data = await response.json()
+      setEvents(data.events || [])
+    } catch (error) {
+      console.error('Failed to load events:', error)
     }
   }
 
@@ -74,6 +90,57 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const handleAddPost = () => {
     setEditingPost(null)
     setShowPostForm(true)
+  }
+
+  const handleAddEvent = () => {
+    setEditingEvent(null)
+    setShowEventForm(true)
+  }
+
+  const handleEditEvent = (event: Event) => {
+    setEditingEvent(event)
+    setShowEventForm(true)
+  }
+
+  const handleDeleteEvent = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this event?')) {
+      return
+    }
+
+    try {
+      const response = await fetch('/api/events', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      })
+
+      if (response.ok) {
+        await loadEvents()
+        await revalidateCache()
+      } else {
+        alert('Failed to delete event')
+      }
+    } catch (error) {
+      alert('Error deleting event')
+    }
+  }
+
+  const handleToggleEventActive = async (event: Event) => {
+    const updated = { ...event, isActive: !event.isActive }
+    try {
+      const response = await fetch('/api/events', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updated),
+      })
+
+      if (response.ok) {
+        await loadEvents()
+        await revalidateCache()
+      }
+    } catch (error) {
+      alert('Error updating event')
+    }
   }
 
   const handleEditPost = (post: Post) => {
@@ -248,16 +315,28 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
           >
             Posts & Articles
           </button>
+          <button
+            className={activeTab === 'events' ? styles.activeTab : styles.tab}
+            onClick={() => setActiveTab('events')}
+          >
+            Events
+          </button>
         </div>
 
         <div className={styles.actions}>
-          {activeTab === 'movies' ? (
+          {activeTab === 'movies' && (
             <button onClick={handleAddMovie} className={styles.addButton}>
               + Add New Movie
             </button>
-          ) : (
+          )}
+          {activeTab === 'posts' && (
             <button onClick={handleAddPost} className={styles.addButton}>
               + Add New Post
+            </button>
+          )}
+          {activeTab === 'events' && (
+            <button onClick={handleAddEvent} className={styles.addButton}>
+              + Create New Event
             </button>
           )}
           <a href="/admin/contacts" className={styles.contactsButton}>
@@ -297,7 +376,23 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
           />
         )}
 
-        {activeTab === 'movies' ? (
+        {showEventForm && (
+          <EventForm
+            event={editingEvent}
+            onSave={async () => {
+              await loadEvents()
+              await revalidateCache()
+              setShowEventForm(false)
+              setEditingEvent(null)
+            }}
+            onCancel={() => {
+              setShowEventForm(false)
+              setEditingEvent(null)
+            }}
+          />
+        )}
+
+        {activeTab === 'movies' && (
           <div className={styles.moviesList}>
             <h2>Movies ({movies.length})</h2>
             <div className={styles.moviesGrid}>
@@ -366,7 +461,9 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
               ))}
             </div>
           </div>
-        ) : (
+        )}
+
+        {activeTab === 'posts' && (
           <div className={styles.postsList}>
             <h2>Posts & Articles ({posts.length})</h2>
             <div className={styles.postsGrid}>
@@ -415,6 +512,77 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'events' && (
+          <div className={styles.eventsList}>
+            <h2>Events ({events.length})</h2>
+            <div className={styles.eventsGrid}>
+              {events.map((event) => {
+                const eventDate = new Date(event.date)
+                const isPast = eventDate < new Date()
+                const displayType = event.eventType === 'Other' && event.customEventType
+                  ? event.customEventType
+                  : event.eventType
+
+                return (
+                  <div key={event.id} className={`${styles.eventCard} ${isPast ? styles.pastEvent : ''}`}>
+                    <div className={styles.eventHeader}>
+                      <h3>{event.title}</h3>
+                      <div className={styles.postBadges}>
+                        <span className={styles.eventTypeBadge}>{displayType}</span>
+                        {event.isActive ? (
+                          <span className={styles.publishedBadge}>ACTIVE</span>
+                        ) : (
+                          <span className={styles.draftBadge}>INACTIVE</span>
+                        )}
+                        {isPast && (
+                          <span className={styles.draftBadge}>PAST</span>
+                        )}
+                      </div>
+                    </div>
+                    {event.image && (
+                      <div className={styles.postImage}>
+                        <img src={event.image} alt={event.title} />
+                      </div>
+                    )}
+                    <div className={styles.eventInfo}>
+                      <div className={styles.eventMeta}>
+                        <span>📅 {eventDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                        {event.time && <span>🕐 {event.time}</span>}
+                      </div>
+                      <div className={styles.eventMeta}>
+                        <span>📍 {event.venue}, {event.location}</span>
+                      </div>
+                      <p className={styles.postExcerpt}>{event.description}</p>
+                      <div className={styles.infoRow}>
+                        <label>Active:</label>
+                        <input
+                          type="checkbox"
+                          checked={event.isActive}
+                          onChange={() => handleToggleEventActive(event)}
+                        />
+                      </div>
+                      <div className={styles.postActions}>
+                        <button
+                          onClick={() => handleEditEvent(event)}
+                          className={styles.editButton}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDeleteEvent(event.id)}
+                          className={styles.deleteButton}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         )}

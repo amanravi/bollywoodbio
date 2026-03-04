@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Movie } from '@/lib/movies'
 import styles from './FeaturedBanner.module.css'
 
@@ -8,6 +8,8 @@ interface FeaturedBannerProps {
   movie: Movie
   onLearnMore?: () => void
 }
+
+const SLIDESHOW_INTERVAL = 5000 // 5 seconds per slide
 
 // Extract YouTube video ID from various URL formats
 function getYouTubeVideoId(url: string): string | null {
@@ -30,6 +32,8 @@ function getYouTubeVideoId(url: string): string | null {
 
 export default function FeaturedBanner({ movie, onLearnMore }: FeaturedBannerProps) {
   const [isPlaying, setIsPlaying] = useState(false)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const slideshowTimer = useRef<NodeJS.Timeout | null>(null)
   
   if (!movie || !movie.isActive) {
     return null
@@ -37,15 +41,38 @@ export default function FeaturedBanner({ movie, onLearnMore }: FeaturedBannerPro
 
   const videoId = movie.trailerLink ? getYouTubeVideoId(movie.trailerLink) : null
   const bannerType = movie.bannerType || (videoId ? 'trailer' : 'poster')
-  const thumbnailUrl = videoId 
-    ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
-    : movie.image
-  const bannerImageUrl = movie.bannerImage || thumbnailUrl || movie.image
+  
+  // Build array of banner images (support both old single and new multiple)
+  const bannerImages: string[] = (() => {
+    if (movie.bannerImages && movie.bannerImages.length > 0) {
+      return movie.bannerImages
+    }
+    if (movie.bannerImage) {
+      return [movie.bannerImage]
+    }
+    const thumbnailUrl = videoId 
+      ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+      : movie.image
+    return [thumbnailUrl || movie.image]
+  })()
+
+  const isSlideshow = bannerType === 'poster' && bannerImages.length > 1
+
+  // Slideshow auto-advance
+  useEffect(() => {
+    if (isSlideshow) {
+      slideshowTimer.current = setInterval(() => {
+        setCurrentSlide(prev => (prev + 1) % bannerImages.length)
+      }, SLIDESHOW_INTERVAL)
+      return () => {
+        if (slideshowTimer.current) clearInterval(slideshowTimer.current)
+      }
+    }
+  }, [isSlideshow, bannerImages.length])
 
   // Auto-play video after component mounts if there's a trailer
   useEffect(() => {
     if (videoId && bannerType === 'trailer') {
-      // Small delay to ensure smooth transition
       const timer = setTimeout(() => {
         setIsPlaying(true)
       }, 500)
@@ -57,6 +84,17 @@ export default function FeaturedBanner({ movie, onLearnMore }: FeaturedBannerPro
 
   const handlePlayClick = () => {
     setIsPlaying(true)
+  }
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index)
+    // Reset the timer when user manually navigates
+    if (slideshowTimer.current) {
+      clearInterval(slideshowTimer.current)
+      slideshowTimer.current = setInterval(() => {
+        setCurrentSlide(prev => (prev + 1) % bannerImages.length)
+      }, SLIDESHOW_INTERVAL)
+    }
   }
 
   return (
@@ -82,11 +120,23 @@ export default function FeaturedBanner({ movie, onLearnMore }: FeaturedBannerPro
               }}
             />
           </div>
+        ) : isSlideshow ? (
+          <>
+            {bannerImages.map((img, index) => (
+              <div
+                key={index}
+                className={`${styles.bannerBackground} ${styles.slideshowSlide} ${
+                  index === currentSlide ? styles.slideActive : ''
+                }`}
+                style={{ backgroundImage: `url(${img})` }}
+              />
+            ))}
+          </>
         ) : (
           <>
             <div 
               className={styles.bannerBackground}
-              style={{ backgroundImage: `url(${bannerImageUrl})` }}
+              style={{ backgroundImage: `url(${bannerImages[0]})` }}
             />
             {videoId && bannerType === 'trailer' && (
               <button 
@@ -123,6 +173,20 @@ export default function FeaturedBanner({ movie, onLearnMore }: FeaturedBannerPro
               Book Now
             </a>
           </div>
+          {isSlideshow && (
+            <div className={styles.slideshowDots}>
+              {bannerImages.map((_, index) => (
+                <button
+                  key={index}
+                  className={`${styles.slideshowDot} ${
+                    index === currentSlide ? styles.dotActive : ''
+                  }`}
+                  onClick={() => goToSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
