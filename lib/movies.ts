@@ -24,9 +24,8 @@ async function getMoviesDataFromFile() {
   } catch (error) {
     console.error('Error reading movies file:', error)
     console.error('Attempted path:', MOVIES_FILE)
-    // Fallback to import if file read fails (for build time)
-    const moviesData = await import('@/data/movies.json')
-    return moviesData.default
+    // Return empty defaults if file doesn't exist (e.g. fresh deploy)
+    return { featured: null, movies: [] }
   }
 }
 

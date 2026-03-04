@@ -14,13 +14,8 @@ async function getEventsDataFromFile() {
     const fileContents = await readFile(EVENTS_FILE, 'utf8')
     return JSON.parse(fileContents)
   } catch (error) {
-    // Fallback to import if file read fails (for build time)
-    try {
-      const eventsData = await import('@/data/events.json')
-      return eventsData.default
-    } catch {
-      return { events: [] }
-    }
+    // Return empty defaults if file doesn't exist (e.g. fresh deploy)
+    return { events: [] }
   }
 }
 

@@ -8,9 +8,8 @@ async function getPostsDataFromFile() {
     const fileContents = await readFile(POSTS_FILE, 'utf8')
     return JSON.parse(fileContents)
   } catch (error) {
-    // Fallback to import if file read fails (for build time)
-    const postsData = await import('@/data/posts.json')
-    return postsData.default
+    // Return empty defaults if file doesn't exist (e.g. fresh deploy)
+    return { posts: [] }
   }
 }
 
