@@ -1,21 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { readFile, writeFile, mkdir } from 'fs/promises'
-import { join, dirname } from 'path'
+import { join } from 'path'
 import { existsSync } from 'fs'
+import { getDataDir } from '@/lib/paths'
 
-const EVENTS_FILE = join(process.cwd(), 'data', 'events.json')
-const DEFAULT_DATA = JSON.stringify({ events: [] }, null, 2)
-
-async function ensureEventsFile() {
-  if (!existsSync(EVENTS_FILE)) {
-    await mkdir(dirname(EVENTS_FILE), { recursive: true })
-    await writeFile(EVENTS_FILE, DEFAULT_DATA, 'utf8')
-  }
+function getEventsFile() {
+  return join(getDataDir(), 'events.json')
 }
 
 async function readEventsFile() {
-  await ensureEventsFile()
-  const fileContents = await readFile(EVENTS_FILE, 'utf8')
+  const filePath = getEventsFile()
+  if (!existsSync(filePath)) {
+    const dir = getDataDir()
+    await mkdir(dir, { recursive: true })
+    await writeFile(filePath, JSON.stringify({ events: [] }, null, 2), 'utf8')
+  }
+  const fileContents = await readFile(filePath, 'utf8')
   return JSON.parse(fileContents)
 }
 
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     // Add new event
     data.events.push(event)
 
-    await writeFile(EVENTS_FILE, JSON.stringify(data, null, 2), 'utf8')
+    await writeFile(getEventsFile(), JSON.stringify(data, null, 2), 'utf8')
     return NextResponse.json({ success: true, event })
   } catch (error) {
     return NextResponse.json(
@@ -75,7 +75,7 @@ export async function PUT(request: NextRequest) {
       )
     }
 
-    await writeFile(EVENTS_FILE, JSON.stringify(data, null, 2), 'utf8')
+    await writeFile(getEventsFile(), JSON.stringify(data, null, 2), 'utf8')
     return NextResponse.json({ success: true, event })
   } catch (error) {
     return NextResponse.json(
@@ -93,7 +93,7 @@ export async function DELETE(request: NextRequest) {
     // Remove event from array
     data.events = data.events.filter((e: any) => e.id !== id)
 
-    await writeFile(EVENTS_FILE, JSON.stringify(data, null, 2), 'utf8')
+    await writeFile(getEventsFile(), JSON.stringify(data, null, 2), 'utf8')
     return NextResponse.json({ success: true })
   } catch (error) {
     return NextResponse.json(

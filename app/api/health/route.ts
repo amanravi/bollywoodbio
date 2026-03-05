@@ -2,11 +2,13 @@ import { NextResponse } from 'next/server'
 import { existsSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { join } from 'path'
+import { getDataDir, getUploadsDir, isUsingPersistentStorage } from '@/lib/paths'
 
 export async function GET() {
   const cwd = process.cwd()
-  const moviesPath = join(cwd, 'data', 'movies.json')
-  const postsPath = join(cwd, 'data', 'posts.json')
+  const dataDir = getDataDir()
+  const moviesPath = join(dataDir, 'movies.json')
+  const postsPath = join(dataDir, 'posts.json')
   
   let moviesExist = false
   let postsExist = false
@@ -39,6 +41,9 @@ export async function GET() {
     node: process.version,
     env: process.env.NODE_ENV,
     cwd,
+    persistentStorage: isUsingPersistentStorage(),
+    dataDir,
+    uploadsDir: getUploadsDir(),
     files: {
       moviesJson: { exists: moviesExist, count: moviesCount, path: moviesPath },
       postsJson: { exists: postsExist, count: postsCount, path: postsPath },

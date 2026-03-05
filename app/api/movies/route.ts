@@ -1,21 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { readFile, writeFile, mkdir } from 'fs/promises'
-import { join, dirname } from 'path'
+import { join } from 'path'
 import { existsSync } from 'fs'
+import { getDataDir } from '@/lib/paths'
 
-const MOVIES_FILE = join(process.cwd(), 'data', 'movies.json')
-const DEFAULT_DATA = JSON.stringify({ featured: null, movies: [] }, null, 2)
-
-async function ensureMoviesFile() {
-  if (!existsSync(MOVIES_FILE)) {
-    await mkdir(dirname(MOVIES_FILE), { recursive: true })
-    await writeFile(MOVIES_FILE, DEFAULT_DATA, 'utf8')
-  }
+function getMoviesFile() {
+  return join(getDataDir(), 'movies.json')
 }
 
 async function readMoviesFile() {
-  await ensureMoviesFile()
-  const fileContents = await readFile(MOVIES_FILE, 'utf8')
+  const filePath = getMoviesFile()
+  if (!existsSync(filePath)) {
+    const dir = getDataDir()
+    await mkdir(dir, { recursive: true })
+    await writeFile(filePath, JSON.stringify({ featured: null, movies: [] }, null, 2), 'utf8')
+  }
+  const fileContents = await readFile(filePath, 'utf8')
   return JSON.parse(fileContents)
 }
 
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       data.featured = { ...movie }
     }
 
-    await writeFile(MOVIES_FILE, JSON.stringify(data, null, 2), 'utf8')
+    await writeFile(getMoviesFile(), JSON.stringify(data, null, 2), 'utf8')
     return NextResponse.json({ success: true, movie })
   } catch (error) {
     return NextResponse.json(
@@ -102,7 +102,7 @@ export async function PUT(request: NextRequest) {
       data.featured = newFeatured || null
     }
 
-    await writeFile(MOVIES_FILE, JSON.stringify(data, null, 2), 'utf8')
+    await writeFile(getMoviesFile(), JSON.stringify(data, null, 2), 'utf8')
     return NextResponse.json({ success: true, movie })
   } catch (error) {
     return NextResponse.json(
@@ -126,7 +126,7 @@ export async function DELETE(request: NextRequest) {
       data.featured = newFeatured || null
     }
 
-    await writeFile(MOVIES_FILE, JSON.stringify(data, null, 2), 'utf8')
+    await writeFile(getMoviesFile(), JSON.stringify(data, null, 2), 'utf8')
     return NextResponse.json({ success: true })
   } catch (error) {
     return NextResponse.json(

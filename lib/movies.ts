@@ -1,30 +1,14 @@
 import { readFile } from 'fs/promises'
 import { join } from 'path'
-
-const MOVIES_FILE = join(process.cwd(), 'data', 'movies.json')
+import { getDataDir } from './paths'
 
 async function getMoviesDataFromFile() {
+  const moviesFile = join(getDataDir(), 'movies.json')
   try {
-    // Log the file path for debugging (only in development or if DEBUG env is set)
-    if (process.env.NODE_ENV !== 'production' || process.env.DEBUG) {
-      console.log('Reading movies from:', MOVIES_FILE)
-      console.log('Current working directory:', process.cwd())
-    }
-    
-    const fileContents = await readFile(MOVIES_FILE, 'utf8')
-    const data = JSON.parse(fileContents)
-    
-    // Log when file was last read for debugging
-    if (process.env.NODE_ENV !== 'production' || process.env.DEBUG) {
-      console.log('Movies file read successfully at:', new Date().toISOString())
-      console.log('Total movies:', data.movies?.length || 0)
-    }
-    
-    return data
+    const fileContents = await readFile(moviesFile, 'utf8')
+    return JSON.parse(fileContents)
   } catch (error) {
     console.error('Error reading movies file:', error)
-    console.error('Attempted path:', MOVIES_FILE)
-    // Return empty defaults if file doesn't exist (e.g. fresh deploy)
     return { featured: null, movies: [] }
   }
 }

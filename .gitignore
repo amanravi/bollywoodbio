@@ -34,5 +34,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# data files (managed on server, not through Git)
-/data/*.json
+# Uploaded images in public (server uploads go to persistent storage via DATA_DIR)
+/public/images/1*

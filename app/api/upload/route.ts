@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
+import { getUploadsDir, getUploadUrl } from '@/lib/paths'
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,10 +15,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Create images directory if it doesn't exist
-    const imagesDir = join(process.cwd(), 'public', 'images')
+    // Create uploads directory if it doesn't exist
+    const uploadsDir = getUploadsDir()
     try {
-      await mkdir(imagesDir, { recursive: true })
+      await mkdir(uploadsDir, { recursive: true })
     } catch (error) {
       // Directory might already exist
     }
@@ -25,15 +26,15 @@ export async function POST(request: NextRequest) {
     // Generate unique filename
     const timestamp = Date.now()
     const filename = `${timestamp}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`
-    const filepath = join(imagesDir, filename)
+    const filepath = join(uploadsDir, filename)
 
     // Convert file to buffer and save
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
     await writeFile(filepath, buffer)
 
-    // Return the public URL
-    const publicUrl = `/images/${filename}`
+    // Return the public URL (uses /api/uploads/filename if DATA_DIR is set)
+    const publicUrl = getUploadUrl(filename)
     return NextResponse.json({ success: true, url: publicUrl })
   } catch (error) {
     console.error('Upload error:', error)

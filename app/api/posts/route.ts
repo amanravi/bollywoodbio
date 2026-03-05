@@ -1,21 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { readFile, writeFile, mkdir } from 'fs/promises'
-import { join, dirname } from 'path'
+import { join } from 'path'
 import { existsSync } from 'fs'
+import { getDataDir } from '@/lib/paths'
 
-const POSTS_FILE = join(process.cwd(), 'data', 'posts.json')
-const DEFAULT_DATA = JSON.stringify({ posts: [] }, null, 2)
-
-async function ensurePostsFile() {
-  if (!existsSync(POSTS_FILE)) {
-    await mkdir(dirname(POSTS_FILE), { recursive: true })
-    await writeFile(POSTS_FILE, DEFAULT_DATA, 'utf8')
-  }
+function getPostsFile() {
+  return join(getDataDir(), 'posts.json')
 }
 
 async function readPostsFile() {
-  await ensurePostsFile()
-  const fileContents = await readFile(POSTS_FILE, 'utf8')
+  const filePath = getPostsFile()
+  if (!existsSync(filePath)) {
+    const dir = getDataDir()
+    await mkdir(dir, { recursive: true })
+    await writeFile(filePath, JSON.stringify({ posts: [] }, null, 2), 'utf8')
+  }
+  const fileContents = await readFile(filePath, 'utf8')
   return JSON.parse(fileContents)
 }
 
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     // Add new post
     data.posts.push(post)
 
-    await writeFile(POSTS_FILE, JSON.stringify(data, null, 2), 'utf8')
+    await writeFile(getPostsFile(), JSON.stringify(data, null, 2), 'utf8')
     return NextResponse.json({ success: true, post })
   } catch (error) {
     return NextResponse.json(
@@ -75,7 +75,7 @@ export async function PUT(request: NextRequest) {
       )
     }
 
-    await writeFile(POSTS_FILE, JSON.stringify(data, null, 2), 'utf8')
+    await writeFile(getPostsFile(), JSON.stringify(data, null, 2), 'utf8')
     return NextResponse.json({ success: true, post })
   } catch (error) {
     return NextResponse.json(
@@ -93,7 +93,7 @@ export async function DELETE(request: NextRequest) {
     // Remove post from array
     data.posts = data.posts.filter((p: any) => p.id !== id)
 
-    await writeFile(POSTS_FILE, JSON.stringify(data, null, 2), 'utf8')
+    await writeFile(getPostsFile(), JSON.stringify(data, null, 2), 'utf8')
     return NextResponse.json({ success: true })
   } catch (error) {
     return NextResponse.json(

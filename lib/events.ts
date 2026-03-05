@@ -1,5 +1,6 @@
-import { readFile, writeFile } from 'fs/promises'
+import { readFile } from 'fs/promises'
 import { join } from 'path'
+import { getDataDir } from './paths'
 
 // Re-export types and constants from the shared file
 export { EVENT_TYPES } from './event-types'
@@ -7,14 +8,12 @@ export type { Event, EventsData } from './event-types'
 
 import type { Event } from './event-types'
 
-const EVENTS_FILE = join(process.cwd(), 'data', 'events.json')
-
 async function getEventsDataFromFile() {
+  const eventsFile = join(getDataDir(), 'events.json')
   try {
-    const fileContents = await readFile(EVENTS_FILE, 'utf8')
+    const fileContents = await readFile(eventsFile, 'utf8')
     return JSON.parse(fileContents)
   } catch (error) {
-    // Return empty defaults if file doesn't exist (e.g. fresh deploy)
     return { events: [] }
   }
 }

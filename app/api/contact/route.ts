@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { readFile, writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
+import { getDataDir } from '@/lib/paths'
 
-const CONTACTS_FILE = join(process.cwd(), 'data', 'contacts.json')
+function getContactsFile() {
+  return join(getDataDir(), 'contacts.json')
+}
 
 interface ContactSubmission {
   id: string
@@ -27,7 +30,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create data directory if it doesn't exist
-    const dataDir = join(process.cwd(), 'data')
+    const dataDir = getDataDir()
     try {
       await mkdir(dataDir, { recursive: true })
     } catch (error) {
@@ -37,7 +40,7 @@ export async function POST(request: NextRequest) {
     // Read existing contacts or create new array
     let contacts: ContactSubmission[] = []
     try {
-      const fileContents = await readFile(CONTACTS_FILE, 'utf8')
+      const fileContents = await readFile(getContactsFile(), 'utf8')
       contacts = JSON.parse(fileContents)
     } catch (error) {
       // File doesn't exist yet, start with empty array
@@ -58,7 +61,7 @@ export async function POST(request: NextRequest) {
     contacts.push(newContact)
 
     // Save to file
-    await writeFile(CONTACTS_FILE, JSON.stringify(contacts, null, 2), 'utf8')
+    await writeFile(getContactsFile(), JSON.stringify(contacts, null, 2), 'utf8')
 
     return NextResponse.json({ 
       success: true, 
@@ -75,7 +78,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const fileContents = await readFile(CONTACTS_FILE, 'utf8')
+    const fileContents = await readFile(getContactsFile(), 'utf8')
     const contacts = JSON.parse(fileContents)
     return NextResponse.json(contacts)
   } catch (error) {

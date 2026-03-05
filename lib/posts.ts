@@ -1,14 +1,13 @@
 import { readFile } from 'fs/promises'
 import { join } from 'path'
-
-const POSTS_FILE = join(process.cwd(), 'data', 'posts.json')
+import { getDataDir } from './paths'
 
 async function getPostsDataFromFile() {
+  const postsFile = join(getDataDir(), 'posts.json')
   try {
-    const fileContents = await readFile(POSTS_FILE, 'utf8')
+    const fileContents = await readFile(postsFile, 'utf8')
     return JSON.parse(fileContents)
   } catch (error) {
-    // Return empty defaults if file doesn't exist (e.g. fresh deploy)
     return { posts: [] }
   }
 }
@@ -60,6 +59,10 @@ export async function getFeaturedPosts(): Promise<Post[]> {
 // Functions for admin panel
 import { writeFile } from 'fs/promises'
 
+function getPostsFile() {
+  return join(getDataDir(), 'posts.json')
+}
+
 export async function getAllPosts(): Promise<Post[]> {
   const postsData = await getPostsDataFromFile()
   return postsData.posts as Post[]
@@ -82,7 +85,7 @@ export async function createPost(post: Post): Promise<Post> {
   }
 
   postsData.posts.push(post)
-  await writeFile(POSTS_FILE, JSON.stringify(postsData, null, 2), 'utf8')
+  await writeFile(getPostsFile(), JSON.stringify(postsData, null, 2), 'utf8')
   return post
 }
 
@@ -94,7 +97,7 @@ export async function updatePost(post: Post): Promise<Post> {
     postsData.posts[index] = post
   }
 
-  await writeFile(POSTS_FILE, JSON.stringify(postsData, null, 2), 'utf8')
+  await writeFile(getPostsFile(), JSON.stringify(postsData, null, 2), 'utf8')
   return post
 }
 
@@ -102,5 +105,5 @@ export async function deletePost(id: string): Promise<void> {
   const postsData = await getPostsDataFromFile()
 
   postsData.posts = postsData.posts.filter((p: Post) => p.id !== id)
-  await writeFile(POSTS_FILE, JSON.stringify(postsData, null, 2), 'utf8')
+  await writeFile(getPostsFile(), JSON.stringify(postsData, null, 2), 'utf8')
 }

@@ -1,23 +1,23 @@
 import { NextResponse } from 'next/server'
 import { readFile } from 'fs/promises'
 import { join } from 'path'
-
-const MOVIES_FILE = join(process.cwd(), 'data', 'movies.json')
-const CONTACTS_FILE = join(process.cwd(), 'data', 'contacts.json')
+import { getDataDir } from '@/lib/paths'
 
 export async function GET() {
   try {
+    const dataDir = getDataDir()
+
     // Read movies from JSON
     let movies: any[] = []
     try {
-      const moviesData = JSON.parse(await readFile(MOVIES_FILE, 'utf8'))
+      const moviesData = JSON.parse(await readFile(join(dataDir, 'movies.json'), 'utf8'))
       movies = moviesData.movies || []
     } catch { /* file may not exist */ }
 
     // Read contacts from JSON
     let contacts: any[] = []
     try {
-      contacts = JSON.parse(await readFile(CONTACTS_FILE, 'utf8'))
+      contacts = JSON.parse(await readFile(join(dataDir, 'contacts.json'), 'utf8'))
     } catch { /* file may not exist */ }
 
     const stats = {
