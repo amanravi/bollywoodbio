@@ -1,4 +1,88 @@
 {
-  "featured": null,
-  "movies": []
+  "featured": {
+    "id": "movie1",
+    "title": "Dhurandhar 2:Revenge ",
+    "description": "Hamza Ali Mazari, whose real identity is Jaskirat Singh Rangi, pursues his undercover operation within Pakistan's criminal world while tracking down Majo.",
+    "image": "/images/1772561294855_645708845_4239569672969814_1483016140735810483_n.jpg",
+    "bookingUrl": "https://www.filmstaden.se/film/dhurandhar-the-revenge/?date=2026-03-19",
+    "releaseDate": "2026-03-19",
+    "isActive": true,
+    "synopsis": "Hamza Ali Mazari, whose real identity is Jaskirat Singh Rangi, pursues his undercover operation within Pakistan's criminal world while tracking down Majo.",
+    "trailerLink": "https://www.youtube.com/watch?v=CN0lNff-zm0",
+    "cast": [
+      "Ranveer Singh",
+      "Sanjay Dutt",
+      "Arjun Rampal"
+    ],
+    "director": "Aditya Dhar ",
+    "genre": [
+      "Spy-Action"
+    ],
+    "duration": "3 h 55 mins ",
+    "rating": "A",
+    "language": "Hindi",
+    "isFeatured": true,
+    "isPreviousDistribution": false,
+    "showTrailer": false,
+    "bannerImage": "/images/1772561291951_d8fbc450-007b-4be7-b7b2-1cfde5df9b87.png",
+    "bannerType": "trailer"
+  },
+  "movies": [
+    {
+      "id": "movie1",
+      "title": "Dhurandhar 2:Revenge ",
+      "description": "Hamza Ali Mazari, whose real identity is Jaskirat Singh Rangi, pursues his undercover operation within Pakistan's criminal world while tracking down Majo.",
+      "image": "/images/1772561294855_645708845_4239569672969814_1483016140735810483_n.jpg",
+      "bookingUrl": "https://www.filmstaden.se/film/dhurandhar-the-revenge/?date=2026-03-19",
+      "releaseDate": "2026-03-19",
+      "isActive": true,
+      "synopsis": "Hamza Ali Mazari, whose real identity is Jaskirat Singh Rangi, pursues his undercover operation within Pakistan's criminal world while tracking down Majo.",
+      "trailerLink": "https://www.youtube.com/watch?v=CN0lNff-zm0",
+      "cast": [
+        "Ranveer Singh",
+        "Sanjay Dutt",
+        "Arjun Rampal"
+      ],
+      "director": "Aditya Dhar ",
+      "genre": [
+        "Spy-Action"
+      ],
+      "duration": "3 h 55 mins ",
+      "rating": "A",
+      "language": "Hindi",
+      "isFeatured": true,
+      "isPreviousDistribution": false,
+      "showTrailer": false,
+      "bannerImage": "/images/1772561291951_d8fbc450-007b-4be7-b7b2-1cfde5df9b87.png",
+      "bannerType": "trailer"
+    },
+    {
+      "title": "Bhooth Bangla",
+      "description": "Bhooth Bangla is an upcoming horror-comedy film starring Akshay Kumar, directed by Priyadarshan.",
+      "image": "/images/1772562082578_629585280_1299343875573577_85385278204288588_n.jpg",
+      "bannerImage": "/images/1772562093793_641275844_1313682944139670_7936923848527228256_n.jpg",
+      "bannerType": "poster",
+      "bookingUrl": "https://www.filmstaden.se/film/dhurandhar-the-revenge/?date=2026-03-19",
+      "releaseDate": "2026-04-10",
+      "isActive": false,
+      "synopsis": "Bhooth Bangla is an upcoming horror-comedy film starring Akshay Kumar, directed by Priyadarshan.",
+      "trailerLink": "https://www.youtube.com/watch?v=x0aMsjhFxeE",
+      "cast": [
+        "Akshay Kumar",
+        "Paresh Rawal",
+        "Tabu"
+      ],
+      "director": "Priyadarshan",
+      "genre": [
+        "Comedy"
+      ],
+      "duration": "2h 30m ",
+      "rating": "15 ",
+      "language": "Hindi",
+      "isFeatured": false,
+      "isPreviousDistribution": false,
+      "showTrailer": false,
+      "id": "movie_1772562146594"
+    }
+  ]
 }

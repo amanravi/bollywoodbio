@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Bebas_Neue, Inter } from 'next/font/google'
+import Script from 'next/script'
+import { ADSENSE_PUBLISHER_ID, ADSENSE_ENABLED } from '@/lib/adsense-config'
 import './globals.css'
 
 const displayFont = Bebas_Neue({
@@ -38,7 +40,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${bodyFont.className} ${displayFont.variable}`}>{children}</body>
+      <body className={`${bodyFont.className} ${displayFont.variable}`}>
+        {ADSENSE_ENABLED && ADSENSE_PUBLISHER_ID && (
+          <Script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
+            crossOrigin="anonymous"
+            strategy="beforeInteractive"
+          />
+        )}
+        {children}
+      </body>
     </html>
   )
 }
