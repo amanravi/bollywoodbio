@@ -3,6 +3,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import AdSense from '@/components/AdSense'
 import styles from './page.module.css'
 
 export const dynamic = 'force-dynamic'
@@ -33,6 +34,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
     <main>
       <div className="goldStars" aria-hidden="true" />
       <Header />
+      <AdSense adSlot="6726421643" adFormat="auto" />
       <article className={styles.postPage}>
         <div className={styles.container}>
           <Link href="/posts" className={styles.backLink}>
@@ -82,6 +84,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </article>
+      <AdSense adSlot="1860961982" adFormat="auto" />
       <Footer />
     </main>
   )

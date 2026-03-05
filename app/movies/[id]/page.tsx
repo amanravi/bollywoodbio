@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import styles from './page.module.css'
 import MovieShareButtons from '@/components/MovieShareButtons'
+import AdSense from '@/components/AdSense'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -64,6 +65,7 @@ export default async function MoviePage({ params }: { params: { id: string } }) 
     <main>
       <div className="goldStars" aria-hidden="true" />
       <Header />
+      <AdSense adSlot="6726421643" adFormat="auto" />
       <article className={styles.moviePage}>
         <div className={styles.container}>
           <Link href="/" className={styles.backLink}>
@@ -202,6 +204,7 @@ export default async function MoviePage({ params }: { params: { id: string } }) 
           </div>
         </div>
       </article>
+      <AdSense adSlot="1860961982" adFormat="auto" />
       <Footer />
     </main>
   )

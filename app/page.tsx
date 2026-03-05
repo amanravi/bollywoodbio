@@ -7,6 +7,7 @@ import PostsSection from '@/components/PostsSection'
 import EventsSection from '@/components/EventsSection'
 import TrailersShowcase from '@/components/TrailersShowcase'
 import Footer from '@/components/Footer'
+import AdSense from '@/components/AdSense'
 
 // Force dynamic rendering to pick up admin changes on Hostinger
 export const dynamic = 'force-dynamic'
@@ -56,6 +57,7 @@ export default async function Home() {
     <main className="homeLuxury">
       <div className="goldStars" aria-hidden="true" />
       <Header />
+      <AdSense adSlot="6726421643" adFormat="auto" />
       <MoviePageContent
         featured={featured}
         movies={movies}
@@ -72,6 +74,7 @@ export default async function Home() {
       {featuredPosts.length > 0 && (
         <PostsSection posts={featuredPosts} featured={true} />
       )}
+      <AdSense adSlot="1860961982" adFormat="auto" />
       <Footer />
     </main>
   )
