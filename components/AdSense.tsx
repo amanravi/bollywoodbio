@@ -16,7 +16,7 @@ export default function AdSense({
   adFormat = 'auto',
   className,
 }: AdSenseProps) {
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(false) // Start hidden
   const adRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -31,17 +31,18 @@ export default function AdSense({
       const hasIframe = adElement.querySelector('iframe') !== null
       const hasHeight = adElement.offsetHeight > 0
       
-      // If no ad content after 4 seconds, hide the container
-      if (!hasIframe && !hasHeight) {
-        setIsVisible(false)
+      // Show container only if ad has loaded
+      if (hasIframe || hasHeight) {
+        setIsVisible(true)
       }
     }
 
     // Check multiple times to catch slow-loading ads
     const timers = [
+      setTimeout(checkAd, 1000),
       setTimeout(checkAd, 2000),
-      setTimeout(checkAd, 4000),
-      setTimeout(checkAd, 6000),
+      setTimeout(checkAd, 3000),
+      setTimeout(checkAd, 5000),
     ]
 
     return () => {
@@ -53,14 +54,19 @@ export default function AdSense({
     return null
   }
 
-  if (!isVisible) {
-    return null
-  }
-
   const containerClass = `${styles.adContainer} ${styles[adFormat]} ${className || ''}`
 
   return (
-    <div ref={adRef} className={containerClass}>
+    <div 
+      ref={adRef} 
+      className={containerClass} 
+      style={{ 
+        display: isVisible ? 'block' : 'none',
+        margin: isVisible ? undefined : 0,
+        height: isVisible ? undefined : 0,
+        minHeight: isVisible ? undefined : 0
+      }}
+    >
       <ins
         className="adsbygoogle"
         style={{ display: 'block', minHeight: 0 }}
