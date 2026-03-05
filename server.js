@@ -2,7 +2,7 @@ const { createServer } = require('http')
 const { parse } = require('url')
 const next = require('next')
 const { existsSync, mkdirSync, copyFileSync } = require('fs')
-const { join } = require('path')
+const { join, resolve } = require('path')
 
 const dev = process.env.NODE_ENV !== 'production'
 const hostname = process.env.HOSTNAME || '0.0.0.0'
@@ -11,10 +11,10 @@ const port = parseInt(process.env.PORT || '3000', 10)
 // Initialize persistent storage before starting the app
 function initPersistentStorage() {
   const dataDir = process.env.DATA_DIR
-    ? join(process.cwd(), process.env.DATA_DIR, 'data')
+    ? resolve(process.cwd(), process.env.DATA_DIR, 'data')
     : join(process.cwd(), 'data')
   const uploadsDir = process.env.DATA_DIR
-    ? join(process.cwd(), process.env.DATA_DIR, 'uploads')
+    ? resolve(process.cwd(), process.env.DATA_DIR, 'uploads')
     : join(process.cwd(), 'public', 'images')
 
   console.log(`> Data directory: ${dataDir}`)

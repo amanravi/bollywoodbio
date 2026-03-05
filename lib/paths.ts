@@ -1,4 +1,4 @@
-import { join } from 'path'
+import { join, resolve } from 'path'
 import { existsSync } from 'fs'
 import { mkdir, copyFile, readdir } from 'fs/promises'
 
@@ -15,14 +15,14 @@ import { mkdir, copyFile, readdir } from 'fs/promises'
 
 export function getDataDir(): string {
   if (process.env.DATA_DIR) {
-    return join(process.cwd(), process.env.DATA_DIR, 'data')
+    return resolve(process.cwd(), process.env.DATA_DIR, 'data')
   }
   return join(process.cwd(), 'data')
 }
 
 export function getUploadsDir(): string {
   if (process.env.DATA_DIR) {
-    return join(process.cwd(), process.env.DATA_DIR, 'uploads')
+    return resolve(process.cwd(), process.env.DATA_DIR, 'uploads')
   }
   return join(process.cwd(), 'public', 'images')
 }
