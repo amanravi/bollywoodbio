@@ -2,6 +2,7 @@
   margin: 1.5rem auto;
   text-align: center;
   display: block;
+  min-height: 0;
 }
 
 .adContainer.horizontal {
@@ -21,7 +22,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .adContainer {
-    margin: 1rem auto;
+    margin: 0.5rem auto;
   }
   
   .adContainer.horizontal {
@@ -30,5 +31,11 @@
   
   .adContainer.vertical {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .adContainer {
+    margin: 0.25rem auto;
   }
 }
